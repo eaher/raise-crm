@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'https://forms.gle/S5ipeDx7gsWUmsET7', // Formulario Gestionar Lead para Setter
             'sheetContainer',
             'sheetIframe',
-            'https://docs.google.com/spreadsheets/d/1LuZ_DqnlbGZBSPI2XjkyIn0lLVF-d8omQnsWrmBj0jc/edit?gid=0', // Tablero Leads para Setter
-            'https://docs.google.com/spreadsheets/d/1m8P6rhGYp0XgzvV-b6Nk1ba_cipUgrTL_rBqSGLezTo/edit?gid=1637628887' // Tablero de Gestión para Setter
+            'https://docs.google.com/spreadsheets/d/1LuZ_DqnlbGZBSPI2XjkyIn0lLVF-d8omQnsWrmBj0jc/edit?gid=579307862#gid=579307862', // Tablero Leads para Setter
+            'https://docs.google.com/spreadsheets/d/1m8P6rhGYp0XgzvV-b6Nk1ba_cipUgrTL_rBqSGLezTo/edit?gid=331933702#gid=331933702' // Tablero de Gestión para Setter
         );
     } else if (currentPath.includes('seller-oline.html')) {
         // Código específico para la página Seller Oline
