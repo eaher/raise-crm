@@ -1,0 +1,76 @@
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Ajustar la anchura del contenedor */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Navbar */
+.custom-navbar {
+    background-color: #0d6efd; /* Color de fondo del navbar */
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-brand {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Enlaces del navbar */
+.navbar-nav .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #00b3b3;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Asegurar espacio suficiente para el contenido debajo del navbar */
+body {
+    padding-top: 80px;
+}
+
+/* Estilo para los contenedores de formularios y tableros incrustados */
+#formContainer, #sheetContainer {
+    width: 100%;
+    height: auto; /* Ajusta automáticamente según el contenido */
+    margin-top: 30px; /* Margen entre los botones y los iframes */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Sombra para simular profundidad */
+    padding: 0; /* Sin padding para evitar el borde blanco */
+    border-radius: 8px; /* Bordes redondeados para un aspecto más suave */
+    background-color: transparent; /* Asegurar que el fondo sea transparente */
+}
+
+iframe {
+    width: 100%;
+    height: 600px; /* Ajusta la altura según tus necesidades */
+    border: none;
+}
