@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'https://docs.google.com/spreadsheets/d/14L8Jq_7O29crfbpL42UfdNHwz_jPBZJVvbLWgAe-Pu4/edit?gid=1239182644#gid=1239182644' // Nueva URL para Tablero de Gestión de Seller Oline
         );
     }
-    // Agregar más condiciones para otras páginas si es necesario
 
     // Función para configurar los botones y contenedores según la página
     function setupPage(needsCreateLead, needsManageLead, needsLeadsDashboard, needsManagementDashboard, formContId, formIframeId, createFormUrl, manageFormUrl, sheetContId, sheetIframeId, leadsSheetUrl, managementSheetUrl) {
@@ -64,20 +63,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Nuevo botón de "Seguimiento de Ventas"
-        const salesFollowUpBtn = document.getElementById('salesFollowUpBtn');
-        salesFollowUpBtn.addEventListener('click', function() {
-            formContainer.style.display = 'block';
-            formIframe.src = 'https://forms.gle/gcpzua7uBFvEk4SR8'; // URL del formulario para Seguimiento de Ventas
-            formContainer.style.marginTop = '30px';
-        });
-
         // Manejar clic en "Tablero Leads" solo si es necesario
         if (needsLeadsDashboard) {
             const leadsDashboardBtn = document.getElementById('leadsDashboardBtn');
             leadsDashboardBtn.addEventListener('click', function() {
                 sheetContainer.style.display = 'block';
-                sheetIframe.src = leadsSheetUrl;
+                sheetIframe.src = leadsSheetUrl; // Asegúrate de que esta URL sea correcta
                 sheetContainer.style.marginTop = '30px';
             });
         }
@@ -87,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const managementDashboardBtn = document.getElementById('managementDashboardBtn');
             managementDashboardBtn.addEventListener('click', function() {
                 sheetContainer.style.display = 'block';
-                sheetIframe.src = managementSheetUrl;
+                sheetIframe.src = managementSheetUrl; // Asegúrate de que esta URL sea correcta
                 sheetContainer.style.marginTop = '30px';
             });
         }
