@@ -43,44 +43,64 @@ document.addEventListener('DOMContentLoaded', function() {
         const sheetIframe = document.getElementById(sheetIframeId);
         console.log('Elementos encontrados:', formContainer, formIframe, sheetContainer, sheetIframe); // Depuración
 
+        // Validación y asignación de eventos para "Crear Lead"
         if (needsCreateLead) {
             const createLeadBtn = document.getElementById('createLeadBtn');
-            createLeadBtn.addEventListener('click', function() {
-                console.log('Clic en Crear Lead'); // Depuración
-                formContainer.style.display = 'block';
-                formIframe.src = createFormUrl;
-                formContainer.style.marginTop = '30px';
-            });
+            if (createLeadBtn) {
+                createLeadBtn.addEventListener('click', function() {
+                    console.log('Clic en Crear Lead'); // Depuración
+                    formContainer.style.display = 'block';
+                    formIframe.src = createFormUrl;
+                    formContainer.style.marginTop = '30px';
+                });
+            } else {
+                console.error('Error: El botón Crear Lead no se encontró.');
+            }
         }
 
+        // Validación y asignación de eventos para "Gestionar Lead"
         if (needsManageLead) {
             const manageLeadBtn = document.getElementById('manageLeadBtn');
-            manageLeadBtn.addEventListener('click', function() {
-                console.log('Clic en Gestionar Lead'); // Depuración
-                formContainer.style.display = 'block';
-                formIframe.src = manageFormUrl;
-                formContainer.style.marginTop = '30px';
-            });
+            if (manageLeadBtn) {
+                manageLeadBtn.addEventListener('click', function() {
+                    console.log('Clic en Gestionar Lead'); // Depuración
+                    formContainer.style.display = 'block';
+                    formIframe.src = manageFormUrl;
+                    formContainer.style.marginTop = '30px';
+                });
+            } else {
+                console.error('Error: El botón Gestionar Lead no se encontró.');
+            }
         }
 
+        // Validación y asignación de eventos para "Tablero Leads"
         if (needsLeadsDashboard) {
             const leadsDashboardBtn = document.getElementById('leadsDashboardBtn');
-            leadsDashboardBtn.addEventListener('click', function() {
-                console.log('Clic en Tablero Leads'); // Depuración
-                sheetContainer.style.display = 'block';
-                sheetIframe.src = leadsSheetUrl;
-                sheetContainer.style.marginTop = '30px';
-            });
+            if (leadsDashboardBtn) {
+                leadsDashboardBtn.addEventListener('click', function() {
+                    console.log('Clic en Tablero Leads'); // Depuración
+                    sheetContainer.style.display = 'block';
+                    sheetIframe.src = leadsSheetUrl;
+                    sheetContainer.style.marginTop = '30px';
+                });
+            } else {
+                console.error('Error: El botón Tablero Leads no se encontró.');
+            }
         }
 
+        // Validación y asignación de eventos para "Tablero de Gestión"
         if (needsManagementDashboard) {
             const managementDashboardBtn = document.getElementById('managementDashboardBtn');
-            managementDashboardBtn.addEventListener('click', function() {
-                console.log('Clic en Tablero de Gestión'); // Depuración
-                sheetContainer.style.display = 'block';
-                sheetIframe.src = managementSheetUrl;
-                sheetContainer.style.marginTop = '30px';
-            });
+            if (managementDashboardBtn) {
+                managementDashboardBtn.addEventListener('click', function() {
+                    console.log('Clic en Tablero de Gestión'); // Depuración
+                    sheetContainer.style.display = 'block';
+                    sheetIframe.src = managementSheetUrl;
+                    sheetContainer.style.marginTop = '30px';
+                });
+            } else {
+                console.error('Error: El botón Tablero de Gestión no se encontró.');
+            }
         }
     }
 });
