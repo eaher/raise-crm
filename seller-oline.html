@@ -38,24 +38,23 @@
         </div>
     </nav>
 
-<!-- Formulario Section -->
-<section class="container my-5">
-    <h2 class="text-center">Formularios</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <button id="manageLeadBtn" class="btn btn-primary w-100 mb-3">Gestionar Lead</button>
+    <!-- Formulario Section -->
+    <section class="container my-5">
+        <h2 class="text-center">Formularios</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <button id="manageLeadBtn" class="btn btn-primary w-100 mb-3">Gestionar Lead</button>
+            </div>
+            <div class="col-md-4">
+                <button id="salesFollowUpBtn" class="btn btn-primary w-100 mb-3">Seguimiento de Ventas</button>
+            </div>
         </div>
-        <div class="col-md-4">
-            <button id="salesFollowUpBtn" class="btn btn-primary w-100 mb-3">Seguimiento de Ventas</button>
+        <!-- Contenedor para mostrar los formularios -->
+        <div id="formContainer" class="mt-4" style="display: none;">
+            <!-- Iframe para incrustar los formularios -->
+            <iframe id="formIframe" style="width: 100%; height: 600px; border: none;"></iframe>
         </div>
-    </div>
-    <!-- Contenedor para mostrar los formularios -->
-    <div id="formContainer" class="mt-4" style="display: none;">
-        <!-- Iframe para incrustar los formularios -->
-        <iframe id="formIframe" style="width: 100%; height: 600px; border: none;"></iframe>
-    </div>
-</section>
-
+    </section>
 
     <!-- Tableros Section -->
     <section class="container my-5">
@@ -74,7 +73,7 @@
 
     <!-- Bootstrap JS (incluye Popper.js para tooltips, etc.) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="js/index.js"></script>
+    <!-- Custom JS para la página Seller Oline -->
+    <script src="js/seller-oline.js"></script>
 </body>
 </html>

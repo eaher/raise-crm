@@ -1,28 +1,49 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Configurando la página de Seller Online'); // Depuración
-    setupPage(
-        false, 
-        true,  
-        false, 
-        true,  
-        'formContainer',
-        'formIframe',
-        '', 
-        'https://forms.gle/HZ9KHvkDrGSiKqh87', 
-        'sheetContainer',
-        'sheetIframe',
-        '', 
-        'https://docs.google.com/spreadsheets/d/14L8Jq_7O29crfbpL42UfdNHwz_jPBZJVvbLWgAe-Pu4/edit?gid=1239182644#gid=1239182644'
-    );
+    // Elementos del DOM
+    const formContainer = document.getElementById('formContainer');
+    const formIframe = document.getElementById('formIframe');
+    const sheetContainer = document.getElementById('sheetContainer');
+    const sheetIframe = document.getElementById('sheetIframe');
+    const manageLeadBtn = document.getElementById('manageLeadBtn');
+    const salesFollowUpBtn = document.getElementById('salesFollowUpBtn');
+    const managementDashboardBtn = document.getElementById('managementDashboardBtn');
 
-    function setupPage(needsCreateLead, needsManageLead, needsLeadsDashboard, needsManagementDashboard, formContId, formIframeId, createFormUrl, manageFormUrl, sheetContId, sheetIframeId, leadsSheetUrl, managementSheetUrl) {
-        const formContainer = document.getElementById(formContId);
-        const formIframe = document.getElementById(formIframeId);
-        const sheetContainer = document.getElementById(sheetContId);
-        const sheetIframe = document.getElementById(sheetIframeId);
-        console.log('Elementos encontrados:', formContainer, formIframe, sheetContainer, sheetIframe); // Depuración
+    // URL de los formularios
+    const manageLeadUrl = 'https://forms.gle/aVgRr1Dw17gH9Pbe8';
+    const salesFollowUpUrl = 'https://forms.gle/3ah5X1k7SeTouzAt5';
 
-        // Aquí irían las mismas validaciones y asignaciones de eventos que ya hemos discutido
-        // para los botones "Crear Lead", "Gestionar Lead", "Tablero Leads", y "Tablero de Gestión".
+    // URL del tablero de Google Sheets
+    const managementDashboardUrl = 'https://docs.google.com/spreadsheets/d/14L8Jq_7O29crfbpL42UfdNHwz_jPBZJVvbLWgAe-Pu4/edit?gid=755886744#gid=755886744';
+
+    // Función para mostrar un formulario en el iframe
+    function showForm(url) {
+        formContainer.style.display = 'block'; // Mostrar el contenedor del formulario
+        formIframe.src = url; // Establecer la URL del iframe
+        formContainer.style.marginTop = '30px'; // Ajustar el margen superior
     }
+
+    // Función para mostrar un Google Sheet en el iframe
+    function showSheet(url) {
+        sheetContainer.style.display = 'block'; // Mostrar el contenedor del sheet
+        sheetIframe.src = url; // Establecer la URL del iframe
+        sheetContainer.style.marginTop = '30px'; // Ajustar el margen superior
+    }
+
+    // Evento para "Gestionar Lead"
+    manageLeadBtn.addEventListener('click', function() {
+        console.log('Clic en Gestionar Lead'); // Depuración
+        showForm(manageLeadUrl);
+    });
+
+    // Evento para "Seguimiento de Ventas"
+    salesFollowUpBtn.addEventListener('click', function() {
+        console.log('Clic en Seguimiento de Ventas'); // Depuración
+        showForm(salesFollowUpUrl);
+    });
+
+    // Evento para "Tablero de Gestión"
+    managementDashboardBtn.addEventListener('click', function() {
+        console.log('Clic en Tablero de Gestión'); // Depuración
+        showSheet(managementDashboardUrl);
+    });
 });
