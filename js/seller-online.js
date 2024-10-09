@@ -2,48 +2,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // Elementos del DOM
     const formContainer = document.getElementById('formContainer');
     const formIframe = document.getElementById('formIframe');
+    const manageLeadBtn = document.getElementById('manageLeadBtn');
     const sheetContainer = document.getElementById('sheetContainer');
     const sheetIframe = document.getElementById('sheetIframe');
-    const manageLeadBtn = document.getElementById('manageLeadBtn');
-    const salesFollowUpBtn = document.getElementById('salesFollowUpBtn');
+    const interestedDashboardBtn = document.getElementById('interestedDashboardBtn');
     const managementDashboardBtn = document.getElementById('managementDashboardBtn');
 
-    // URL de los formularios
-    const manageLeadUrl = 'https://forms.gle/aVgRr1Dw17gH9Pbe8';
-    const salesFollowUpUrl = 'https://forms.gle/3ah5X1k7SeTouzAt5';
+    // URL del formulario actualizado
+    const manageLeadUrl = 'https://forms.gle/zRttGTwroK8Mbizb9'; // Formulario de Gestionar Leads
 
-    // URL del tablero de Google Sheets
-    const managementDashboardUrl = 'https://docs.google.com/spreadsheets/d/14L8Jq_7O29crfbpL42UfdNHwz_jPBZJVvbLWgAe-Pu4/edit?gid=755886744#gid=755886744';
+    // URL del tablero de Interesados
+    const interestedDashboardUrl = 'https://docs.google.com/spreadsheets/d/1uLGWdfI_xYxhSReAVIWSIL8URitSy7zqIiwq2SZp1uo/edit?gid=1982444138#gid=1982444138';
+
+    // URL del tablero de gestión 
+    const managementDashboardUrl = 'https://docs.google.com/spreadsheets/d/1GOzXzrc6Q7fwxOEUTfIptL4BS1p9uLI9_s2ntCIQgYw/edit?usp=sharing'; 
 
     // Función para mostrar un formulario en el iframe
     function showForm(url) {
-        formContainer.style.display = 'block'; // Mostrar el contenedor del formulario
-        formIframe.src = url; // Establecer la URL del iframe
-        formContainer.style.marginTop = '30px'; // Ajustar el margen superior
+        formContainer.style.display = 'block';
+        formIframe.src = url;
+        formContainer.style.marginTop = '30px';
     }
 
     // Función para mostrar un Google Sheet en el iframe
     function showSheet(url) {
-        sheetContainer.style.display = 'block'; // Mostrar el contenedor del sheet
-        sheetIframe.src = url; // Establecer la URL del iframe
-        sheetContainer.style.marginTop = '30px'; // Ajustar el margen superior
+        sheetContainer.style.display = 'block';
+        sheetIframe.src = url;
+        sheetContainer.style.marginTop = '30px';
     }
 
-    // Evento para "Gestionar Lead"
+    // Evento para "Gestionar Leads"
     manageLeadBtn.addEventListener('click', function() {
-        console.log('Clic en Gestionar Lead'); // Depuración
         showForm(manageLeadUrl);
     });
 
-    // Evento para "Seguimiento de Ventas"
-    salesFollowUpBtn.addEventListener('click', function() {
-        console.log('Clic en Seguimiento de Ventas'); // Depuración
-        showForm(salesFollowUpUrl);
+    // Evento para "Interesados"
+    interestedDashboardBtn.addEventListener('click', function() {
+        showSheet(interestedDashboardUrl);
     });
 
-    // Evento para "Tablero de Gestión"
+    // Evento para "Tablero de Gestión" (sin URL de momento)
     managementDashboardBtn.addEventListener('click', function() {
-        console.log('Clic en Tablero de Gestión'); // Depuración
-        showSheet(managementDashboardUrl);
+        if (managementDashboardUrl) {
+            showSheet(managementDashboardUrl);
+        } else {
+            alert('La URL del Tablero de Gestión aún no ha sido configurada.');
+        }
     });
 });
