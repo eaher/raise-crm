@@ -8,14 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const interestedDashboardBtn = document.getElementById('interestedDashboardBtn');
     const managementDashboardBtn = document.getElementById('managementDashboardBtn');
 
-    // URL del formulario actualizado
-    const manageLeadUrl = 'https://forms.gle/5QkWmsGK6du3gcSe9'; // Formulario de Gestionar
-
-    // URL del tablero de onb
+    // URLs de los tableros
+    const manageLeadUrl = 'https://forms.gle/5QkWmsGK6du3gcSe9';
     const interestedDashboardUrl = 'https://docs.google.com/spreadsheets/d/1KZsYhHPiQYlCjkYrPTcgTpLOTOE0cd5ZVRBKhy-xgiI/edit?gid=0#gid=0';
-
-    // URL del tablero de gestión 
-    const managementDashboardUrl = 'https://docs.google.com/spreadsheets/d/10ZIhe7fCYvkndqQIeh6eTy9MDi8A8PEQWKIqLBBvrts/edit?gid=0#gid=0'; 
+    const clientDashboardUrl = 'https://docs.google.com/spreadsheets/d/1vAoXWGp86H6U4loKCr9jYIA3vxESaE_GG7a0azy3BnU/edit?gid=725351691#gid=725351691';
+    const managementDashboardUrl = 'https://docs.google.com/spreadsheets/d/1QXeETvV6ObN04AlRaRMirGfAWKGBVyM0-oB9tfY2gKs/edit?gid=0#gid=0';
 
     // Función para mostrar un formulario en el iframe
     function showForm(url) {
@@ -24,11 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
         formContainer.style.marginTop = '30px';
     }
 
-    // Función para mostrar un Google Sheet en el iframe
-    function showSheet(url) {
+    // Función para mostrar los Google Sheets en los iframes
+    function showSheets() {
+        sheetContainer.innerHTML = `
+            <h3>CLIENTES</h3>
+            <iframe src="${clientDashboardUrl}" style="width: 100%; height: 600px; border: none;"></iframe>
+            <h3 style="margin-top: 20px;">HISTORIAL DE GESTIONES</h3>
+            <iframe src="${managementDashboardUrl}" style="width: 100%; height: 600px; border: none; margin-top: 20px;"></iframe>
+        `;
         sheetContainer.style.display = 'block';
-        sheetIframe.src = url;
-        sheetContainer.style.marginTop = '30px';
     }
 
     // Evento para "Gestionar"
@@ -36,28 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
         showForm(manageLeadUrl);
     });
 
-    // Evento para "onb"
+    // Evento para "Onboarding"
     interestedDashboardBtn.addEventListener('click', function() {
-        showSheet(interestedDashboardUrl);
+        showForm(interestedDashboardUrl);
     });
 
-    // Evento para "Tablero de Gestión" 
+    // Evento para "Tablero de Gestión"
     managementDashboardBtn.addEventListener('click', function() {
-        if (managementDashboardUrl) {
-            showSheet(managementDashboardUrl);
-        } else {
-            alert('La URL del Tablero de Gestión aún no ha sido configurada.');
-        }
-    });
-
-    // Prevenir el desplazamiento cuando el iframe toma el foco
-    document.querySelectorAll('iframe').forEach(iframe => {
-        iframe.addEventListener('load', () => {
-            iframe.contentWindow.addEventListener('focus', function() {
-                // Al enfocarse en el iframe, mantenemos la posición actual sin permitir scroll
-                const scrollY = window.scrollY;
-                setTimeout(() => window.scrollTo(0, scrollY), 0);
-            });
-        });
+        showSheets();
     });
 });
