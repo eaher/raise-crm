@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 invalidAttempts++;
                 if (invalidAttempts === 1) {
-                    alert("ID inexistente, presta atencion a lo que escribis");
+                    alert("ID inexistente, presta atención a lo que escribís");
                 } else if (invalidAttempts === 2) {
                     alert("Daaale flaco, 2 veces mal... revisa y volve más tarde, chau chau chaaauuuuu");
                 }
