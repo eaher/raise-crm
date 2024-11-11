@@ -74,3 +74,16 @@ iframe {
     height: 600px; /* Ajusta la altura según tus necesidades */
     border: none;
 }
+
+/* Estilos personalizados para el enlace de WhatsApp */
+.whatsapp-link {
+    color: #25D366; /* Color verde de WhatsApp */
+    font-weight: bold; /* Texto en negrita para destacar */
+    font-size: large;
+}
+
+/* Efecto de cambio de color al pasar el mouse */
+.whatsapp-link:hover {
+    color: #128C7E; /* Un tono verde más oscuro al hacer hover */
+    text-decoration: none; /* Opcional, para quitar el subrayado al pasar el mouse */
+}
