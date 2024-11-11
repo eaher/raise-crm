@@ -45,6 +45,15 @@ document.addEventListener('DOMContentLoaded', function() {
         sheetContainer.innerHTML = '';
     }
 
+    // Función para mostrar un Google Sheet en el sheetContainer
+    function showSheet(url) {
+        closeSheets();
+        sheetContainer.innerHTML = `
+            <iframe src="${url}" style="width: calc(100% - 20px); height: 600px; border: none; margin-left: 10px; margin-right: 10px;"></iframe>
+        `;
+        sheetContainer.style.display = 'block';
+    }
+
     // Función para mostrar los Google Sheets específicos para "Tablero de Gestión"
     function showManagementSheets(sheetUrl) {
         closeSheets();
@@ -92,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     interestedDashboardBtn.addEventListener('click', function() {
-        showSheet(interestedDashboardUrl);
+        showSheet(interestedDashboardUrl); // Usar la función showSheet para mostrar Onboarding
     });
 
     managementDashboardBtn.addEventListener('click', function() {
