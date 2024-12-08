@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const managementDashboardBtn = document.getElementById('managementDashboardBtn');
     const closeManagementBtn = document.getElementById('closeManagementBtn');
 
+    // NUEVOS ELEMENTOS Y URL
+    const newOrderPurchaseBtn = document.getElementById('newOrderPurchaseBtn');
+    const newOrderContainer = document.getElementById('newOrderContainer');
+    const newOrderIframe = document.getElementById('newOrderIframe');
+    const orderPurchaseUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScMy2Bp_A05z489rihoj5OUn4LMIyZ7z8rgKfM0TGF4ZnKTvA/viewform';
+
     // URLs de los Google Sheets
     const manageLeadUrl = 'https://forms.gle/5QkWmsGK6du3gcSe9';
     const interestedDashboardUrl = 'https://docs.google.com/spreadsheets/d/1KZsYhHPiQYlCjkYrPTcgTpLOTOE0cd5ZVRBKhy-xgiI/edit?gid=0#gid=0';
@@ -117,4 +123,17 @@ document.addEventListener('DOMContentLoaded', function() {
     closeManagementBtn.addEventListener('click', function() {
         closeSheets();
     });
+
+    //  Evento para abrir el formulario de "Orden de Compra"
+    newOrderPurchaseBtn.addEventListener('click', function() {
+        newOrderContainer.style.display = 'block';
+        newOrderIframe.src = orderPurchaseUrl;
+    });
+    // Función para cerrar el formulario de Orden de Compra
+    closeOrderPurchaseBtn.addEventListener('click', function() {
+        newOrderContainer.style.display = 'none';
+        newOrderIframe.src = '';
+    });
+
+
 });
