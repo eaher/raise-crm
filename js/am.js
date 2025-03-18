@@ -11,10 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeManagementBtn = document.getElementById('closeManagementBtn');
 
     // NUEVOS ELEMENTOS Y URL
-    const newOrderPurchaseBtn = document.getElementById('newOrderPurchaseBtn');
     const newOrderContainer = document.getElementById('newOrderContainer');
     const newOrderIframe = document.getElementById('newOrderIframe');
-    const orderPurchaseUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScMy2Bp_A05z489rihoj5OUn4LMIyZ7z8rgKfM0TGF4ZnKTvA/viewform';
+    const orderTypeSelect = document.getElementById('orderTypeSelect');
+    const openOrderBtn = document.getElementById('openOrderBtn');  // Botón "Abrir"
+    const closeOrderPurchaseBtn = document.getElementById('closeOrderPurchaseBtn');
+
+    const orderPurchaseUrlPublicidad = 'https://docs.google.com/forms/d/e/1FAIpQLScMy2Bp_A05z489rihoj5OUn4LMIyZ7z8rgKfM0TGF4ZnKTvA/viewform';
+    const orderPurchaseUrlSsWeb = 'https://docs.google.com/forms/d/e/1FAIpQLScXsEjsbdK56Y5T4qWqk0v1IbC/viewform'; // Por agregar
 
     // URLs de los Google Sheets
     const manageLeadUrl = 'https://forms.gle/5QkWmsGK6du3gcSe9';
@@ -32,12 +36,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para mostrar un formulario en el iframe
     function showForm(url) {
-        formContainer.style.display = 'block';
-        formIframe.src = url;
-        formIframe.style.marginLeft = '10px';
-        formIframe.style.marginRight = '10px';
-        formContainer.style.marginTop = '30px';
+        newOrderContainer.style.display = 'block';
+        newOrderIframe.src = url;
+        newOrderIframe.style.marginLeft = '10px';
+        newOrderIframe.style.marginRight = '10px';
+        newOrderContainer.style.marginTop = '30px';
     }
+
+    // Evento para el botón "Abrir" que carga el formulario seleccionado
+    openOrderBtn.addEventListener('click', function() {
+        const selectedValue = orderTypeSelect.value;
+        if (selectedValue === "OC Publicidad") {
+            showForm(orderPurchaseUrlPublicidad);
+        } else if (selectedValue === "OC Ss Web") {
+            showForm(orderPurchaseUrlSsWeb);
+        } else {
+            alert("Por favor, selecciona un tipo de orden de compra.");
+        }
+    });
+
+    // Función para cerrar el contenedor de la Orden de Compra
+    closeOrderPurchaseBtn.addEventListener('click', function() {
+        newOrderContainer.style.display = 'none';
+        newOrderIframe.src = '';
+    });
 
     // Función para cerrar el contenedor del formulario
     closeFormBtn.addEventListener('click', function() {
@@ -124,16 +146,27 @@ document.addEventListener('DOMContentLoaded', function() {
         closeSheets();
     });
 
-    //  Evento para abrir el formulario de "Orden de Compra"
-    newOrderPurchaseBtn.addEventListener('click', function() {
-        newOrderContainer.style.display = 'block';
-        newOrderIframe.src = orderPurchaseUrl;
+    // Evento para seleccionar el tipo de orden de compra
+    document.getElementById('orderTypeSelect').addEventListener('change', function() {
+        const selectedValue = this.value;
+        if (selectedValue === "OC Publicidad") {
+            // Mostrar el contenedor de la orden de compra y cargar el formulario correspondiente
+            newOrderContainer.style.display = 'block';
+            newOrderIframe.src = orderPurchaseUrlPublicidad;
+        } else if (selectedValue === "OC Ss Web") {
+            // Mostrar el contenedor de la orden de compra y cargar el formulario correspondiente
+            newOrderContainer.style.display = 'block';
+            newOrderIframe.src = orderPurchaseUrlSsWeb;
+        } else {
+            newOrderContainer.style.display = 'none';
+            newOrderIframe.src = '';
+        }
     });
+
     // Función para cerrar el formulario de Orden de Compra
     closeOrderPurchaseBtn.addEventListener('click', function() {
         newOrderContainer.style.display = 'none';
         newOrderIframe.src = '';
     });
-
 
 });
