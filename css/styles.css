@@ -87,3 +87,49 @@ iframe {
     color: #128C7E; /* Un tono verde más oscuro al hacer hover */
     text-decoration: none; /* Opcional, para quitar el subrayado al pasar el mouse */
 }
+
+
+/*============================
+ Cotizador USD 
+ =============================*/
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2 {
+    color: #0d6efd;
+}
+
+#inicio {
+    background: #0d6efd;
+    color: white;
+}
+
+footer {
+    background-color: #0d6efd;
+}
+
+
+/* Fondo blanco para las páginas cotizador-ars.html y cotizador-usd.html */
+#cotizador {
+    background-color: white ; /* Fondo blanco para las páginas Cotizador */
+}
+
+
+/* Asegurarse de que todos los bordes de la tabla sean visibles */
+.table-bordered {
+    border: 1px solid #dee2e6; /* Borde general de la tabla */
+}
+
+/* Asegurarse de que todos los bordes de las celdas sean visibles */
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6; /* Borde de celdas específicas */
+}
+
+/* Estilo de las celdas del encabezado */
+.table-bordered th {
+    background-color: #f8f9fa; /* Color de fondo para las celdas del encabezado */
+    font-weight: bold; /* Asegurarse de que el texto en las celdas del encabezado sea más visible */
+}
