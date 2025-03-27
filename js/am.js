@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Elementos del DOM
     const formContainer = document.getElementById('formContainer');
     const formIframe = document.getElementById('formIframe');
@@ -10,20 +10,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const managementDashboardBtn = document.getElementById('managementDashboardBtn');
     const closeManagementBtn = document.getElementById('closeManagementBtn');
 
-    // NUEVOS ELEMENTOS Y URL
+    // Orden de Compra
     const newOrderContainer = document.getElementById('newOrderContainer');
     const newOrderIframe = document.getElementById('newOrderIframe');
     const orderTypeSelect = document.getElementById('orderTypeSelect');
-    const openOrderBtn = document.getElementById('openOrderBtn');  // Botón "Abrir"
+    const openOrderBtn = document.getElementById('openOrderBtn');
     const closeOrderPurchaseBtn = document.getElementById('closeOrderPurchaseBtn');
 
+    // URLs
     const orderPurchaseUrlPublicidad = 'https://docs.google.com/forms/d/e/1FAIpQLScMy2Bp_A05z489rihoj5OUn4LMIyZ7z8rgKfM0TGF4ZnKTvA/viewform';
     const orderPurchaseUrlSsWeb = 'https://docs.google.com/forms/d/e/1FAIpQLScXsEjsbdK56Y5T4qWqk0v1IbC/viewform'; // Por agregar
 
-    // URLs de los Google Sheets
     const manageLeadUrl = 'https://forms.gle/5QkWmsGK6du3gcSe9';
     const interestedDashboardUrl = 'https://docs.google.com/spreadsheets/d/1KZsYhHPiQYlCjkYrPTcgTpLOTOE0cd5ZVRBKhy-xgiI/edit?gid=0#gid=0';
     const clientDashboardUrl = 'https://docs.google.com/spreadsheets/d/1vAoXWGp86H6U4loKCr9jYIA3vxESaE_GG7a0azy3BnU/edit?gid=725351691#gid=0';
+
     const managementDashboardUrls = {
         "123456": "https://docs.google.com/spreadsheets/d/1QXeETvV6ObN04AlRaRMirGfAWKGBVyM0-oB9tfY2gKs/edit?gid=0#gid=0",
         "123457": "https://docs.google.com/spreadsheets/d/1fHxBSZ17tOUmm502fxwLbbK9cH3zKqHZVpc7CxPRxYQ/edit?gid=0#gid=0",
@@ -34,8 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let invalidAttempts = 0;
 
-    // Función para mostrar un formulario en el iframe
-    function showForm(url) {
+    // Mostrar formulario en sección "Formularios"
+    function showLeadForm(url) {
+        formContainer.style.display = 'block';
+        formIframe.src = url;
+        formIframe.style.marginLeft = '10px';
+        formIframe.style.marginRight = '10px';
+        formContainer.style.marginTop = '30px';
+    }
+
+    // Mostrar formulario en sección "Orden de Compra"
+    function showOrderForm(url) {
         newOrderContainer.style.display = 'block';
         newOrderIframe.src = url;
         newOrderIframe.style.marginLeft = '10px';
@@ -43,37 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         newOrderContainer.style.marginTop = '30px';
     }
 
-    // Evento para el botón "Abrir" que carga el formulario seleccionado
-    openOrderBtn.addEventListener('click', function() {
-        const selectedValue = orderTypeSelect.value;
-        if (selectedValue === "OC Publicidad") {
-            showForm(orderPurchaseUrlPublicidad);
-        } else if (selectedValue === "OC Ss Web") {
-            showForm(orderPurchaseUrlSsWeb);
-        } else {
-            alert("Por favor, selecciona un tipo de orden de compra.");
-        }
-    });
-
-    // Función para cerrar el contenedor de la Orden de Compra
-    closeOrderPurchaseBtn.addEventListener('click', function() {
-        newOrderContainer.style.display = 'none';
-        newOrderIframe.src = '';
-    });
-
-    // Función para cerrar el contenedor del formulario
-    closeFormBtn.addEventListener('click', function() {
-        formContainer.style.display = 'none';
-        formIframe.src = '';
-    });
-
-    // Función para cerrar el contenedor de sheets
-    function closeSheets() {
-        sheetContainer.style.display = 'none';
-        sheetContainer.innerHTML = '';
-    }
-
-    // Función para mostrar un Google Sheet en el sheetContainer
+    // Mostrar un Sheet en contenedor
     function showSheet(url) {
         closeSheets();
         sheetContainer.innerHTML = `
@@ -82,23 +62,29 @@ document.addEventListener('DOMContentLoaded', function() {
         sheetContainer.style.display = 'block';
     }
 
-    // Función para mostrar los Google Sheets específicos para "Tablero de Gestión"
+    // Mostrar dos Sheets para gestión
     function showManagementSheets(sheetUrl) {
         closeSheets();
         sheetContainer.innerHTML = `
             <div>
                 <h3>CLIENTES</h3>
-                <iframe src="${clientDashboardUrl}" style="width: calc(100% - 20px); height: 600px; border: none; margin-left: 10px; margin-right: 10px;"></iframe>
+                <iframe src="${clientDashboardUrl}" style="width: calc(100% - 20px); height: 600px; border: none; margin: 0 10px;"></iframe>
             </div>
             <div style="margin-top: 20px;">
                 <h3>HISTORIAL DE GESTIONES</h3>
-                <iframe src="${sheetUrl}" style="width: calc(100% - 20px); height: 600px; border: none; margin-left: 10px; margin-right: 10px;"></iframe>
+                <iframe src="${sheetUrl}" style="width: calc(100% - 20px); height: 600px; border: none; margin: 0 10px;"></iframe>
             </div>
         `;
         sheetContainer.style.display = 'block';
     }
 
-    // Función para mostrar el popup de ID de usuario
+    // Cerrar sección de Sheets
+    function closeSheets() {
+        sheetContainer.style.display = 'none';
+        sheetContainer.innerHTML = '';
+    }
+
+    // Popup para ingresar ID de usuario
     function requestUserId() {
         let userId;
         let isValidId = false;
@@ -107,66 +93,67 @@ document.addEventListener('DOMContentLoaded', function() {
             userId = prompt("Ingrese ID de usuario:");
             if (userId in managementDashboardUrls) {
                 isValidId = true;
-                invalidAttempts = 0; // Reiniciar el contador de intentos inválidos
+                invalidAttempts = 0;
                 showManagementSheets(managementDashboardUrls[userId]);
             } else {
                 invalidAttempts++;
                 if (invalidAttempts === 1) {
                     alert("ID inexistente, presta atención a lo que escribís");
-                } else if (invalidAttempts === 2) {
-                    alert("Daaale flaco, 2 veces mal... revisa y volve más tarde, chau chau chaaauuuuu");
+                } else {
+                    alert("Daaale flaco, 2 veces mal... revisa y volve más tarde, chau chau chaaauuu");
                 }
             }
         }
+
         if (!isValidId) {
-            invalidAttempts = 0; // Reiniciar el contador después de dos intentos
+            invalidAttempts = 0;
         }
     }
 
-    // Eventos para los botones
-    manageLeadBtn.addEventListener('click', function() {
-        showForm(manageLeadUrl);
+    // Eventos
+    manageLeadBtn.addEventListener('click', function () {
+        showLeadForm(manageLeadUrl);
     });
 
-    interestedDashboardBtn.addEventListener('click', function() {
-        showSheet(interestedDashboardUrl); // Usar la función showSheet para mostrar Onboarding
+    interestedDashboardBtn.addEventListener('click', function () {
+        showSheet(interestedDashboardUrl);
     });
 
-    managementDashboardBtn.addEventListener('click', function() {
-        requestUserId(); // Mostrar popup de ID al hacer clic en "Tablero de Gestión"
+    managementDashboardBtn.addEventListener('click', function () {
+        requestUserId();
     });
 
-    // Cerrar botón para interestedDashboard
-    closeInterestedBtn.addEventListener('click', function() {
-        closeSheets();
+    closeInterestedBtn.addEventListener('click', closeSheets);
+    closeManagementBtn.addEventListener('click', closeSheets);
+    closeFormBtn.addEventListener('click', function () {
+        formContainer.style.display = 'none';
+        formIframe.src = '';
+    });
+    closeOrderPurchaseBtn.addEventListener('click', function () {
+        newOrderContainer.style.display = 'none';
+        newOrderIframe.src = '';
     });
 
-    // Cerrar botón para managementDashboard
-    closeManagementBtn.addEventListener('click', function() {
-        closeSheets();
+    openOrderBtn.addEventListener('click', function () {
+        const selectedValue = orderTypeSelect.value;
+        if (selectedValue === "OC Publicidad") {
+            showOrderForm(orderPurchaseUrlPublicidad);
+        } else if (selectedValue === "OC Ss Web") {
+            showOrderForm(orderPurchaseUrlSsWeb);
+        } else {
+            alert("Por favor, selecciona un tipo de orden de compra.");
+        }
     });
 
-    // Evento para seleccionar el tipo de orden de compra
-    document.getElementById('orderTypeSelect').addEventListener('change', function() {
+    orderTypeSelect.addEventListener('change', function () {
         const selectedValue = this.value;
         if (selectedValue === "OC Publicidad") {
-            // Mostrar el contenedor de la orden de compra y cargar el formulario correspondiente
-            newOrderContainer.style.display = 'block';
-            newOrderIframe.src = orderPurchaseUrlPublicidad;
+            showOrderForm(orderPurchaseUrlPublicidad);
         } else if (selectedValue === "OC Ss Web") {
-            // Mostrar el contenedor de la orden de compra y cargar el formulario correspondiente
-            newOrderContainer.style.display = 'block';
-            newOrderIframe.src = orderPurchaseUrlSsWeb;
+            showOrderForm(orderPurchaseUrlSsWeb);
         } else {
             newOrderContainer.style.display = 'none';
             newOrderIframe.src = '';
         }
     });
-
-    // Función para cerrar el formulario de Orden de Compra
-    closeOrderPurchaseBtn.addEventListener('click', function() {
-        newOrderContainer.style.display = 'none';
-        newOrderIframe.src = '';
-    });
-
 });
