@@ -44,7 +44,7 @@ function calcularRaiseAds() {
     const formulaCalculada = (sumaMontos / 0.78);
     document.getElementById('calculo-formula').innerText = formatearValorFinanciero(formulaCalculada);
 
-    const saldoPublicitario = (paqueteContratado / 2) - ((paqueteContratado / 2) * 0.38);
+    const saldoPublicitario = (paqueteContratado / 2) - ((paqueteContratado / 2) * 0.35);
     document.getElementById('saldo-publicitario').innerText = formatearValorFinanciero(saldoPublicitario);
 
     const duracionCampania = parseFloat(document.getElementById('duracion-campania-raiseads').value) || 0;
