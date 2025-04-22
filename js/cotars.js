@@ -38,7 +38,9 @@ function calcularRaiseAds() {
 
     const sumaMontos = montoGrafica + montoReel + montoInfluencer + montoLocutora;
 
-    const inversion = Math.ceil(paqueteContratado + fee + (sumaMontos / 0.78));
+    const inversionBase = paqueteContratado + fee + (sumaMontos / 0.78);
+    const inversion = Math.ceil(inversionBase / 0.9684); // Ajusta para compensar 3.16% de comisión
+    
     document.getElementById('inversion-raiseads').innerText = formatearValorFinanciero(inversion);
 
     const formulaCalculada = (sumaMontos / 0.78);
