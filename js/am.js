@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Elementos del DOM
     const formContainer = document.getElementById('formContainer');
     const formIframe = document.getElementById('formIframe');
     const manageLeadBtn = document.getElementById('manageLeadBtn');
@@ -10,16 +9,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const managementDashboardBtn = document.getElementById('managementDashboardBtn');
     const closeManagementBtn = document.getElementById('closeManagementBtn');
 
-    // Orden de Compra
     const newOrderContainer = document.getElementById('newOrderContainer');
     const newOrderIframe = document.getElementById('newOrderIframe');
     const orderTypeSelect = document.getElementById('orderTypeSelect');
     const openOrderBtn = document.getElementById('openOrderBtn');
     const closeOrderPurchaseBtn = document.getElementById('closeOrderPurchaseBtn');
 
-    // URLs
     const orderPurchaseUrlPublicidad = 'https://docs.google.com/forms/d/e/1FAIpQLScMy2Bp_A05z489rihoj5OUn4LMIyZ7z8rgKfM0TGF4ZnKTvA/viewform';
-    const orderPurchaseUrlSsWeb = 'https://docs.google.com/forms/d/e/1FAIpQLScXsEjsbdK56Y5T4qWqk0v1IbC/viewform'; // Por agregar
+    const orderPurchaseUrlSsWeb = 'https://docs.google.com/forms/d/e/1FAIpQLScXsEjsbdK56Y5T4qWqk0v1IbC/viewform';
 
     const manageLeadUrl = 'https://forms.gle/5QkWmsGK6du3gcSe9';
     const interestedDashboardUrl = 'https://docs.google.com/spreadsheets/d/1KZsYhHPiQYlCjkYrPTcgTpLOTOE0cd5ZVRBKhy-xgiI/edit?gid=0#gid=0';
@@ -35,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let invalidAttempts = 0;
 
-    // Mostrar formulario en sección "Formularios"
     function showLeadForm(url) {
         formContainer.style.display = 'block';
         formIframe.src = url;
@@ -44,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
         formContainer.style.marginTop = '30px';
     }
 
-    // Mostrar formulario en sección "Orden de Compra"
     function showOrderForm(url) {
         newOrderContainer.style.display = 'block';
         newOrderIframe.src = url;
@@ -53,38 +48,57 @@ document.addEventListener('DOMContentLoaded', function () {
         newOrderContainer.style.marginTop = '30px';
     }
 
-    // Mostrar un Sheet en contenedor
     function showSheet(url) {
         closeSheets();
-        sheetContainer.innerHTML = `
-            <iframe src="${url}" style="width: calc(100% - 20px); height: 600px; border: none; margin-left: 10px; margin-right: 10px;"></iframe>
-        `;
+        sheetContainer.innerHTML = `<div id="iframeWrapper" style="width: 100%; height: 600px; overflow: hidden;">
+            <iframe id="dynamicIframe" style="width: 100%; height: 600px; border: none;"></iframe>
+        </div>`;
         sheetContainer.style.display = 'block';
+        const iframe = document.getElementById('dynamicIframe');
+        iframe.addEventListener('load', function onLoad() {
+            iframe.removeEventListener('load', onLoad);
+            document.getElementById('tablerosSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        iframe.src = url;
     }
 
-    // Mostrar dos Sheets para gestión
     function showManagementSheets(sheetUrl) {
         closeSheets();
         sheetContainer.innerHTML = `
-            <div>
-                <h3>CLIENTES</h3>
-                <iframe src="${clientDashboardUrl}" style="width: calc(100% - 20px); height: 600px; border: none; margin: 0 10px;"></iframe>
+        <div>
+            <h3 class="text-center mb-4">CLIENTES Y HISTORIAL DE GESTIONES</h3>
+            <div style="display: flex; width: 100vw; height: 600px; overflow: hidden; margin-left: calc(-50vw + 50%);">
+                <div style="width: 50vw; height: 100%; overflow: hidden;">
+                    <iframe id="clientIframe" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+                <div style="width: 50vw; height: 100%; overflow: hidden;">
+                    <iframe id="historialIframe" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
             </div>
-            <div style="margin-top: 20px;">
-                <h3>HISTORIAL DE GESTIONES</h3>
-                <iframe src="${sheetUrl}" style="width: calc(100% - 20px); height: 600px; border: none; margin: 0 10px;"></iframe>
-            </div>
-        `;
+        </div>`;
+    
+
+    
         sheetContainer.style.display = 'block';
+        const clientIframe = document.getElementById('clientIframe');
+        const historialIframe = document.getElementById('historialIframe');
+        clientIframe.addEventListener('load', function onLoad() {
+            clientIframe.removeEventListener('load', onLoad);
+            document.getElementById('tablerosSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        historialIframe.addEventListener('load', function onLoad() {
+            historialIframe.removeEventListener('load', onLoad);
+            document.getElementById('tablerosSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        clientIframe.src = clientDashboardUrl;
+        historialIframe.src = sheetUrl;
     }
 
-    // Cerrar sección de Sheets
     function closeSheets() {
         sheetContainer.style.display = 'none';
         sheetContainer.innerHTML = '';
     }
 
-    // Popup para ingresar ID de usuario
     function requestUserId() {
         let userId;
         let isValidId = false;
@@ -110,16 +124,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Eventos
     manageLeadBtn.addEventListener('click', function () {
         showLeadForm(manageLeadUrl);
     });
 
-    interestedDashboardBtn.addEventListener('click', function () {
+    interestedDashboardBtn.addEventListener('click', function (e) {
+        e.preventDefault();
         showSheet(interestedDashboardUrl);
     });
 
-    managementDashboardBtn.addEventListener('click', function () {
+    managementDashboardBtn.addEventListener('click', function (e) {
+        e.preventDefault();
         requestUserId();
     });
 
