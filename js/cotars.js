@@ -46,7 +46,8 @@ function calcularRaiseAds() {
     const formulaCalculada = (sumaMontos / 0.78);
     document.getElementById('calculo-formula').innerText = formatearValorFinanciero(formulaCalculada);
 
-    const saldoPublicitario = (paqueteContratado / 2) - ((paqueteContratado / 2) * 0.2925863045);
+    //const saldoPublicitario = (paqueteContratado / 2) - ((paqueteContratado / 2) * 0.2925863045);  avalon
+    const saldoPublicitario = (paqueteContratado / 2) - ((paqueteContratado / 2) * 0.316986544634929); //FG
     document.getElementById('saldo-publicitario').innerText = formatearValorFinanciero(saldoPublicitario);
 
     const duracionCampania = parseFloat(document.getElementById('duracion-campania-raiseads').value) || 0;
