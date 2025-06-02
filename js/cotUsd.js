@@ -1,160 +1,202 @@
-// Función para formatear los valores en formato financiero
-function formatearValorFinanciero(valor) {
-    return valor.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+// js/cotUsd.js
 
+window.addEventListener('DOMContentLoaded', () => {
+  // ---------------------------------------------
+  // Utilidades de formateo / extracción de miles
+  // ---------------------------------------------
+  function formatearMiles(valorSinFormatear) {
+    if (valorSinFormatear === '' || isNaN(valorSinFormatear)) return '';
+    const numero = parseInt(valorSinFormatear, 10);
+    return numero.toLocaleString('es-AR', { maximumFractionDigits: 0 });
+  }
 
-// Función para calcular los montos de cada ítem (Gráfica, Reel, etc.)
-function calcularMontos() {
-    const calcularMonto = (cantidadId, precioId) => {
-        const cantidad = parseFloat(document.getElementById(cantidadId).value) || 0;
-        const precioUnitario = parseFloat(document.getElementById(precioId).value) || 0;
-        return cantidad * precioUnitario;
-    };
+  function extraerNumero(str) {
+    if (!str) return 0;
+    const limpio = str.replace(/\./g, '');
+    const n = parseFloat(limpio);
+    return isNaN(n) ? 0 : n;
+  }
 
-    // Calcular los montos individuales
-    const montoGrafica = calcularMonto('cantidad-grafica', 'precio-unitario-grafica');
-    const montoReel = calcularMonto('cantidad-reel', 'precio-unitario-reel');
-    const montoInfluencer = calcularMonto('cantidad-influencer', 'precio-unitario-influencer');
-    const montoLocutora = calcularMonto('cantidad-locutora', 'precio-unitario-locutora');
+  // ---------------------------------------------
+  // Máscara de miles para inputs `.campo-miles`
+  // ---------------------------------------------
+  document.querySelectorAll('.campo-miles').forEach(input => {
+    input.addEventListener('input', (e) => {
+      const valorCrudo = e.target.value.replace(/[^\d]/g, '');
+      if (valorCrudo === '') {
+        e.target.value = '';
+        return;
+      }
+      const formateado = parseInt(valorCrudo, 10).toLocaleString('es-AR', { maximumFractionDigits: 0 });
+      e.target.value = formateado;
+    });
+  });
 
-    // Calcular la suma total de los montos
-    const sumaMontos = montoGrafica + montoReel + montoInfluencer + montoLocutora;
+  // ---------------------------------------------
+  // Validación de % Conversión (0-100) en tiempo real
+  // ---------------------------------------------
+  const inputConversion = document.getElementById('porcentaje-conversion');
+  const errorConversion = document.getElementById('error-conversion');
+  inputConversion.addEventListener('input', () => {
+    const val = parseFloat(inputConversion.value);
+    if (isNaN(val) || val < 0 || val > 100) {
+      inputConversion.classList.add('is-invalid');
+      errorConversion.classList.remove('oculto');
+    } else {
+      inputConversion.classList.remove('is-invalid');
+      errorConversion.classList.add('oculto');
+    }
+  });
 
-    // Aplicar la fórmula (sumaMontos / 0.78) a las celdas de monto
-    const montoFinal = Math.ceil(sumaMontos / 0.78);
+  // ---------------------------------------------
+  // Validación de Costo Lead en tiempo real
+  // ---------------------------------------------
+  const inputCostoLead = document.getElementById('costo-lead');
+  const errorCostoLead = document.getElementById('error-costo-lead');
+  inputCostoLead.addEventListener('input', () => {
+    const num = extraerNumero(inputCostoLead.value);
+    if (isNaN(num) || num <= 0) {
+      inputCostoLead.classList.add('is-invalid');
+      errorCostoLead.classList.remove('oculto');
+    } else {
+      inputCostoLead.classList.remove('is-invalid');
+      errorCostoLead.classList.add('oculto');
+    }
+  });
 
-    // Muestra (sumaMontos / 0.78) en la celda #total-mas-impuestos
-    document.getElementById('total-mas-impuestos').innerText = formatearValorFinanciero(montoFinal);
+  // ---------------------------------------------
+  // Recalcular todo al pulsar el botón
+  // ---------------------------------------------
+  document.getElementById('btn-calcular').addEventListener('click', () => {
+    // 1) SALDO NETO
+    let saldoNetoStr = document.getElementById('saldo-neto').value;
+    let saldoNeto = extraerNumero(saldoNetoStr);
+    document.getElementById('saldo-neto').value = formatearMiles(saldoNeto);
 
+    // 2) TOTAL LC
+    const feeLC = parseFloat(document.getElementById('fee-lc').value);    // 0.20
+    const ivaLC = parseFloat(document.getElementById('iva-lc').value);    // 0.21
 
-    // Asignar los valores modificados a las celdas de monto
-    document.getElementById('monto-grafica').innerText = formatearValorFinanciero(montoFinal);
-    document.getElementById('monto-reel').innerText = formatearValorFinanciero(montoFinal);
-    document.getElementById('monto-influencer').innerText = formatearValorFinanciero(montoFinal);
-    document.getElementById('monto-locutora').innerText = formatearValorFinanciero(montoFinal);
+    //   Monto Fee LC = saldoNeto * 0.20
+    const montoFeeLC = saldoNeto * feeLC;               // 20,000  si saldoNeto=100k
+    //   Base IVA LC = saldoNeto + montoFeeLC
+    const baseIvaLC = saldoNeto + montoFeeLC;           // 120,000
+    //   Monto IVA LC = baseIvaLC * 0.21
+    const montoIvaLC = baseIvaLC * ivaLC;               // 25,200
+    //   Total LC = saldoNeto + montoFeeLC + montoIvaLC
+    const totalLC = saldoNeto + montoFeeLC + montoIvaLC; // 145,200
 
-    return { montoGrafica, montoReel, montoInfluencer, montoLocutora };
-}
+    document.getElementById('total-lc').value = formatearMiles(Math.ceil(totalLC));
 
-// Función para calcular los valores en RaiseAds
-function calcularRaiseAds() {
-    const paqueteContratado = parseFloat(document.getElementById('paquete-contratado').value) || 0;
-    const fee = parseFloat(document.getElementById('fee').value) || 0;
+    // 3) CONTENIDO MULTIMEDIA
+    const reelQ = parseFloat(document.getElementById('reel-q').value) || 0;
+    const reelValor = extraerNumero(document.getElementById('reel-valor').value);
+    const totalReel = reelQ * reelValor;                        // p.ej. 2 * 10k = 20k
+    document.getElementById('total-reel').value = formatearMiles(totalReel);
 
-    // Obtener los montos calculados
-    const { montoGrafica, montoReel, montoInfluencer, montoLocutora } = calcularMontos();
+    const graficaQ = parseFloat(document.getElementById('grafica-q').value) || 0;
+    const graficaValor = extraerNumero(document.getElementById('grafica-valor').value);
+    const totalGrafica = graficaQ * graficaValor;               // p.ej. 3 * 15k = 45k
+    document.getElementById('total-grafica').value = formatearMiles(totalGrafica);
 
+    const influencerQ = parseFloat(document.getElementById('influencer-q').value) || 0;
+    const influencerValor = extraerNumero(document.getElementById('influencer-valor').value);
+    const totalInfluencer = influencerQ * influencerValor;       // p.ej. 1 * 50k = 50k
+    document.getElementById('total-influencer').value = formatearMiles(totalInfluencer);
 
-    // Suma total de los montos
-    const sumaMontos = montoGrafica + montoReel + montoInfluencer + montoLocutora;
+    const locutoraQ = parseFloat(document.getElementById('locutora-q').value) || 0;
+    const locutoraValor = extraerNumero(document.getElementById('locutora-valor').value);
+    const totalLocutora = locutoraQ * locutoraValor;             // p.ej. 1 * 0 = 0
+    document.getElementById('total-locutora').value = formatearMiles(totalLocutora);
 
+    const totalContenido = totalReel + totalGrafica + totalInfluencer + totalLocutora; // 120,000
+    document.getElementById('total-contenido').value = formatearMiles(totalContenido);
 
-    // Cálculo de inversión con la fórmula proporcionada
-    const inversion = Math.ceil(paqueteContratado + fee + (sumaMontos / 0.78));
+    // 4) FEE AGENCIA
+    let porcentajeFeeAgencia = 0;
+    if (saldoNeto < 500001)          porcentajeFeeAgencia = 0.30;
+    else if (saldoNeto <= 1000000)   porcentajeFeeAgencia = 0.28;
+    else if (saldoNeto <= 5000000)   porcentajeFeeAgencia = 0.25;
+    else if (saldoNeto <= 10000000)  porcentajeFeeAgencia = 0.22;
+    else if (saldoNeto <= 20000000)  porcentajeFeeAgencia = 0.18;
+    else                              porcentajeFeeAgencia = 0.15;
 
+    document.getElementById('porcentaje-fee-agencia').value =
+      (porcentajeFeeAgencia * 100).toFixed(0) + '%';
 
-    document.getElementById('inversion-raiseads').innerText = formatearValorFinanciero(inversion);
+    const montoFeeAgencia = Math.ceil(saldoNeto * porcentajeFeeAgencia); // p.ej. 30,000
+    document.getElementById('fee-agencia').value =
+      formatearMiles(montoFeeAgencia);
 
-    // Mostrar el cálculo de la fórmula en la fila correspondiente
-    const formulaCalculada = (sumaMontos / 0.78);
+    // Base para cálculos de IVA e IIBB Agencia = TotalLC + TotalContenido + FeeAgencia
+    const baseAgencia = totalLC + totalContenido + montoFeeAgencia; // 145,200 +120,000 +30,000 = 295,200
 
-    // Muestra el resultado de 'formulaCalculada' en la consola
+    // IVA Agencia = baseAgencia * 0.21 = 61,992
+    const montoIvaAgencia = Math.ceil(baseAgencia * 0.21);
+    document.getElementById('iva-agencia').value =
+      formatearMiles(montoIvaAgencia);
 
+    // IIBB Agencia = baseAgencia * 0.05 = 14,760
+    const montoIibbAgencia = Math.ceil(baseAgencia * 0.05);
+    document.getElementById('iibb-agencia').value =
+      formatearMiles(montoIibbAgencia);
 
+    // Total Importe Agencia (Fee + IVA + IIBB) = 30,000 + 61,992 + 14,760 = 106,752
+    const totalImpuestos = montoFeeAgencia + montoIvaAgencia + montoIibbAgencia;
+    document.getElementById('total-impuestos').value =
+      formatearMiles(totalImpuestos);
 
-    document.getElementById('calculo-formula').innerText = formatearValorFinanciero(formulaCalculada);
+    // 5) TOTAL FINAL ANTES DE MP
+    const totalAntesMP = totalLC + totalContenido + totalImpuestos; // 145,200 +120,000 +106,752 = 371,952
 
-    const saldoPublicitarioARS = paqueteContratado * 0.5; // Saldo Publicitario ARS (Oculto)
-    const cotizacionUSD = parseFloat(document.getElementById('cotizacion-usd-raiseads').value) || 0;
-    const saldoPublicitarioUSD = saldoPublicitarioARS / cotizacionUSD; // Saldo Publicitario USD
-    document.getElementById('saldo-publicitario-usd').innerText = formatearValorFinanciero(saldoPublicitarioUSD);
+    // 6) TOTAL A PAGAR Y DESCUENTO
+    const metodoPago = document.getElementById('metodo-pago').value;
+    let totalAPagar = 0;
+    let textoDescuento = '0%';
 
-    const duracionCampania = parseFloat(document.getElementById('duracion-campania-raiseads').value) || 0;
-    const saldoPubliUSDporDia = saldoPublicitarioUSD / duracionCampania; // Saldo Publi USD/Día
-    document.getElementById('saldo-publi-usd-dia').innerText = formatearValorFinanciero(saldoPubliUSDporDia);
+    if (metodoPago === 'Transferencia') {
+      // Sin ajuste (Transferencia = 8% descuento, pero ya base calcula igual)
+      totalAPagar = totalAntesMP;
+      textoDescuento = '8%';
+    } else {
+      // Para otros métodos: dividir por (1 - 0.08) = 0.92
+      totalAPagar = totalAntesMP / 0.92; // 371,952 / 0.92 = 404,295.65
+      textoDescuento = '0%';
+    }
 
-    const costoLead = parseFloat(document.getElementById('costo-lead-raiseads').value) || 0;
-    const leadsProyectados = saldoPublicitarioUSD / costoLead; // Leads Proyectados
-    document.getElementById('leads-proyectados-raiseads').innerText = formatearValorFinanciero(leadsProyectados);
+    document.getElementById('total-a-pagar').value =
+      formatearMiles(Math.ceil(totalAPagar));
+    document.getElementById('descuento').value = textoDescuento;
 
-    const conversion = parseFloat(document.getElementById('conversion-raiseads').value) / 100 || 0;
-    const cantidadVentas = leadsProyectados * conversion; // Cantidad de Ventas
-    document.getElementById('cantidad-ventas-raiseads').innerText = formatearValorFinanciero(cantidadVentas);
+    const inputTotalPagar = document.getElementById('total-a-pagar');
+    if (metodoPago === 'Transferencia') {
+      inputTotalPagar.style.backgroundColor = '#e8f5e9';
+    } else {
+      inputTotalPagar.style.backgroundColor = '#f1f1f1';
+    }
 
-    const ticketPromedio = parseFloat(document.getElementById('ticket-promedio-raiseads').value) || 0;
-    const gananciaBruta = parseFloat(document.getElementById('ganancia-bruta-raiseads').value) / 100 || 0;
-    const gananciaProyectada = (cantidadVentas * ticketPromedio) * gananciaBruta; // Ganancia Proyectada
-    document.getElementById('ganancia-proyectada-raiseads').innerText = formatearValorFinanciero(gananciaProyectada);
+    // 7) LEADS ESTIMADOS E INGRESOS APROXIMADOS
+    const costoLead = extraerNumero(document.getElementById('costo-lead').value);
+    let leadsEstimados = 0;
+    if (!isNaN(costoLead) && costoLead > 0) {
+      leadsEstimados = saldoNeto / costoLead;
+    }
+    document.getElementById('leads-estimados').value = leadsEstimados.toFixed(2);
 
-    const ingresosTotales = cantidadVentas * ticketPromedio; // Ingresos Totales
-    document.getElementById('ingresos-totales-raiseads').innerText = formatearValorFinanciero(ingresosTotales);
+    const comisionVenta = extraerNumero(document.getElementById('comision-venta').value);
+    const porcentajeConversion = parseFloat(document.getElementById('porcentaje-conversion').value) / 100 || 0;
+    let ingresosAprox = 0;
+    if (!isNaN(comisionVenta) && !isNaN(porcentajeConversion)) {
+      ingresosAprox = leadsEstimados * porcentajeConversion * comisionVenta;
+    }
+    document.getElementById('ingresos-aprox').value =
+      formatearMiles(Math.ceil(ingresosAprox));
+  });
 
-    const roasM0 = ingresosTotales / inversion; // ROAS M0
-    document.getElementById('roas-m0-raiseads').innerText = roasM0.toFixed(2);
-}
-
-// Función para formatear los valores en formato financiero
-function formatearValorFinanciero(valor) {
-    return valor.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-// Función para sincronizar los valores de RaiseAds a Servicio Actual
-function sincronizarValoresConRaiseAds() {
-    // Sincronizar los campos de Servicio Actual con los valores de RaiseAds
-    const paqueteContratado = parseFloat(document.getElementById('paquete-contratado').value) || 0;
-    const cotizacionUsdRaiseAds = parseFloat(document.getElementById('cotizacion-usd-raiseads').value) || 0;
-    const duracionCampaniaRaiseAds = parseFloat(document.getElementById('duracion-campania-raiseads').value) || 0;
-    const ticketPromedioRaiseAds = parseFloat(document.getElementById('ticket-promedio-raiseads').value) || 0;
-    const gananciaBrutaRaiseAds = parseFloat(document.getElementById('ganancia-bruta-raiseads').value) || 0;
-    const conversionRaiseAds = parseFloat(document.getElementById('conversion-raiseads').value) || 0;
-
-    // Asignar valores a los campos de Servicio Actual
-    document.getElementById('saldo-servicio-actual').value = paqueteContratado; // Saldo igual a Paquete Contratado
-    document.getElementById('cotizacion-usd-servicio-actual').value = cotizacionUsdRaiseAds; // Cotización USD igual
-    document.getElementById('duracion-campania-servicio-actual').value = duracionCampaniaRaiseAds; // Duración igual
-    document.getElementById('ticket-promedio-servicio-actual').value = ticketPromedioRaiseAds; // Ticket Promedio igual
-    document.getElementById('ganancia-bruta-servicio-actual').value = gananciaBrutaRaiseAds; // Ganancia Bruta igual
-    document.getElementById('conversion-servicio-actual').value = conversionRaiseAds; // Conversión (%) igual a RaiseAds
-}
-
-// Función para calcular los valores en Servicio Actual
-function calcularServicioActual() {
-    const saldo = parseFloat(document.getElementById('saldo-servicio-actual').value) || 0;
-    const impuestos = parseFloat(document.getElementById('impuestos-servicio-actual').value) / 100 || 0;
-    const costoContenido = parseFloat(document.getElementById('costo-contenido-servicio-actual').value) || 0;
-    const cotizacionUsd = parseFloat(document.getElementById('cotizacion-usd-servicio-actual').value) || 0;
-    const duracionCampania = parseFloat(document.getElementById('duracion-campania-servicio-actual').value) || 0;
-    const cantidadLeads = parseFloat(document.getElementById('cantidad-leads-servicio-actual').value) || 0;
-    const conversion = parseFloat(document.getElementById('conversion-servicio-actual').value) / 100 || 0;
-    const ticketPromedio = parseFloat(document.getElementById('ticket-promedio-servicio-actual').value) || 0;
-    const gananciaBruta = parseFloat(document.getElementById('ganancia-bruta-servicio-actual').value) / 100 || 0;
-
-    const saldoUsd = saldo * (1 - impuestos) / cotizacionUsd; // Saldo USD
-    document.getElementById('saldo-usd-servicio-actual').innerText = formatearValorFinanciero(saldoUsd);
-
-    const costoLead = saldoUsd / cantidadLeads; // Costo Lead
-    document.getElementById('costo-lead-servicio-actual').innerText = formatearValorFinanciero(costoLead);
-
-    const cantidadVentas = cantidadLeads * conversion; // Cantidad de Ventas
-    document.getElementById('cantidad-ventas-servicio-actual').innerText = formatearValorFinanciero(cantidadVentas);
-
-    const ingresosTotales = cantidadVentas * ticketPromedio; // Ingresos Totales
-    document.getElementById('ingresos-totales-servicio-actual').innerText = formatearValorFinanciero(ingresosTotales);
-
-    const gananciaProyectada = ingresosTotales * gananciaBruta; // Ganancia Proyectada
-    document.getElementById('ganancia-proyectada-servicio-actual').innerText = formatearValorFinanciero(gananciaProyectada);
-
-    const inversionActual = saldo + costoContenido; // Inversión Actual
-    document.getElementById('inversion-servicio-actual').innerText = formatearValorFinanciero(inversionActual);
-
-    const roas = ingresosTotales / inversionActual; // ROAS
-    document.getElementById('roas-servicio-actual').innerText = roas.toFixed(2);
-}
-
-// Evento para calcular los campos cuando se presiona el botón
-document.getElementById('calcular-todo').addEventListener('click', function () {
-    sincronizarValoresConRaiseAds(); // Sincronizar los valores de RaiseAds a Servicio Actual
-    calcularRaiseAds(); // Calcular RaiseAds
-    calcularServicioActual(); // Calcular Servicio Actual
+  // ---------------------------------------------
+  // Recalcular automáticamente al cambiar método de pago
+  // ---------------------------------------------
+  document.getElementById('metodo-pago').addEventListener('change', () => {
+    document.getElementById('btn-calcular').click();
+  });
 });

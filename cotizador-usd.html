@@ -1,317 +1,252 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAISE-CRM - AM</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Font Awesome para íconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuevo Cotizador</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Tu CSS global + estilos adicionales -->
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg custom-navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <img src="img/logo-raise-blanco.svg" alt="Logo" style="height: 40px;">
+  <!-- Navbar (igual que en todas las páginas) -->
+  <nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/logo-raise-blanco.svg" alt="Logo" style="height: 40px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="seller-online.html">Seller</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="setter.html">Setter</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="am.html">AM</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Cotizador
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="seller-oline.html">Seller</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="setter.html">Setter</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="am.html">AM</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Cotizador
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="cotizador-usd.html" target="_blank">Cotizador USD</a></li>
-                            <li><a class="dropdown-item" href="cotizador-ars.html" target="_blank">Cotizador ARS</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSczsDMCGzuBl6PhXysFM8Az-kLLvS1WmD-c1BkqGYBFFDIl_w/viewform" target="_blank">Solicitud de pago</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link whatsapp-link" href="https://web.whatsapp.com" target="_blank">
-                            Abrir <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="cotizador-usd.html" target="_blank">Nuevo Cotizador</a></li>
+              <li><a class="dropdown-item" href="cotizador-ars.html" target="_blank">Cotizador</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSczsDMCGzuBl6PhXysFM8Az-kLLvS1WmD-c1BkqGYBFFDIl_w/viewform"
+              target="_blank">
+              Solicitud de pago
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link whatsapp-link" href="https://web.whatsapp.com" target="_blank">
+              Abrir <i class="fab fa-whatsapp"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sección Principal -->
+  <section id="cotizador" class="py-5">
+    <div class="container">
+      <!-- Título principal -->
+      <div class="text-center mb-4">
+        <h1>Nuevo Cotizador</h1>
+        <p class="text-muted">Ingresa tus datos y obtén resultados en tiempo real</p>
+      </div>
+
+      <!-- ====== Bloque 1: Datos Base ====== -->
+      <div class="block-card">
+        <h2>Datos Base</h2>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="saldo-neto" class="form-label">Saldo Neto</label>
+            <input type="text" class="form-control campo-miles" id="saldo-neto" placeholder="0" />
+            <div class="form-text">Al escribir, se formatea con “.” automáticamente. Ej.: 12.345</div>
+          </div>
         </div>
-    </nav>
-
-
-    <!-- Sección Cotizador -->
-    <section id="cotizador" class="py-5">
-        <div class="container text-center">
-            <h1>Cotizador RaiseAds</h1>
-            <div class="row">
-                <!-- Columna RaiseAds -->
-                <div class="col-md-6">
-                    <h2>RaiseAds</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Campo</th>
-                                <th>Cantidad</th>
-                                <th>Precio Unitario</th>
-                              
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Campos de RaiseAds -->
-                            <tr>
-                                <td>Paquete Contratado</td>
-                                <td><input type="number" id="paquete-contratado" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td>Fee</td>
-                                <td><input type="number" id="fee" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td>Gráfica</td>
-                                <td><input type="number" id="cantidad-grafica" class="form-control"></td>
-                                <td><input type="number" id="precio-unitario-grafica" class="form-control"></td>
-                                <!-- Ocultar columna Monto -->
-                                <td id="monto-grafica" style="display: none;"></td>
-                            </tr>
-                            <tr>
-                                <td>Reel</td>
-                                <td><input type="number" id="cantidad-reel" class="form-control"></td>
-                                <td><input type="number" id="precio-unitario-reel" class="form-control"></td>
-                                <!-- Ocultar columna Monto -->
-                                <td id="monto-reel" style="display: none;"></td>
-                            </tr>
-                            <tr>
-                                <td>Influencer</td>
-                                <td><input type="number" id="cantidad-influencer" class="form-control"></td>
-                                <td><input type="number" id="precio-unitario-influencer" class="form-control"></td>
-                                <!-- Ocultar columna Monto -->
-                                <td id="monto-influencer" style="display: none;"></td>
-                            </tr>
-                            <tr>
-                                <td>Locutora</td>
-                                <td><input type="number" id="cantidad-locutora" class="form-control"></td>
-                                <td><input type="number" id="precio-unitario-locutora" class="form-control"></td>
-                                <!-- Ocultar columna Monto -->
-                                <td id="monto-locutora" style="display: none;"></td>
-                            </tr>
-
-                            <!-- La fila de 'Total + Imp' ahora ocupa 2 celdas en 1 <td> -->
-                                <tr>
-                                    <td>Total + Imp</td>
-                                    <!-- Unimos las columnas restantes en una sola celda con colspan="2" -->
-                                    <td colspan="2" id="total-mas-impuestos"></td>
-                                </tr>
-
-                            <!-- Fila con la fórmula (oculta) -->
-                            <tr style="display: none;">
-                                <td>Cálculo Fórmula</td>
-                                <td colspan="3" id="calculo-formula"></td>
-                            </tr>
-                            <!-- Campos calculados (ocultos) -->
-                            <tr style="display: none;">
-                                <td>Saldo Publicitario ARS</td>
-                                <td colspan="3" id="saldo-publicitario-ars"></td>
-                            </tr>
-                            <tr>
-                                <td>Cotización USD</td>
-                                <td colspan="3">
-                                    <input type="number" id="cotizacion-usd-raiseads" class="form-control">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Saldo Publicitario USD</td>
-                                <td colspan="3" id="saldo-publicitario-usd"></td>
-                            </tr>
-                            <tr>
-                                <td>Duración Campaña (Días)</td>
-                                <td colspan="3">
-                                    <input type="number" id="duracion-campania-raiseads" class="form-control">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Saldo Publi USD/Día</td>
-                                <td colspan="3" id="saldo-publi-usd-dia"></td>
-                            </tr>
-                            <tr>
-                                <td>Costo Lead</td>
-                                <td colspan="3">
-                                    <input type="number" id="costo-lead-raiseads" class="form-control">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Leads Proyectados</td>
-                                <td colspan="3" id="leads-proyectados-raiseads"></td>
-                            </tr>
-                            <tr>
-                                <td>Conversión %</td>
-                                <td colspan="3">
-                                    <input type="number" id="conversion-raiseads" class="form-control">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Cantidad de Ventas</td>
-                                <td colspan="3" id="cantidad-ventas-raiseads"></td>
-                            </tr>
-                            <tr>
-                                <td>Ticket Promedio</td>
-                                <td colspan="3">
-                                    <input type="number" id="ticket-promedio-raiseads" class="form-control">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>% Ganancia Bruta</td>
-                                <td colspan="3">
-                                    <input type="number" id="ganancia-bruta-raiseads" class="form-control">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ganancia Proyectada</td>
-                                <td colspan="3" id="ganancia-proyectada-raiseads"></td>
-                            </tr>
-                            <tr>
-                                <td>Ingresos Totales</td>
-                                <td colspan="3" id="ingresos-totales-raiseads"></td>
-                            </tr>
-                            <tr>
-                                <td>Inversión</td>
-                                <td colspan="3" id="inversion-raiseads"></td>
-                            </tr>
-                            <tr>
-                                <td>ROAS M0</td>
-                                <td colspan="3" id="roas-m0-raiseads"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Columna Servicio Actual -->
-                <div class="col-md-6">
-                    <h2>Servicio Actual</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Campo</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Saldo</td>
-                                <td><input type="number" id="saldo-servicio-actual" class="form-control" readonly></td>
-                            </tr>
-                            <tr>
-                                <td>Impuestos (%)</td>
-                                <td><input type="number" id="impuestos-servicio-actual" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td>Costo Contenido</td>
-                                <td><input type="number" id="costo-contenido-servicio-actual" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td>Cotización USD</td>
-                                <td>
-                                    <input type="number" id="cotizacion-usd-servicio-actual" class="form-control" readonly>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Saldo USD</td>
-                                <td id="saldo-usd-servicio-actual"></td>
-                            </tr>
-                            <tr>
-                                <td>Duración Campaña (Días)</td>
-                                <td>
-                                    <input type="number" id="duracion-campania-servicio-actual" class="form-control" readonly>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Cantidad de Leads</td>
-                                <td><input type="number" id="cantidad-leads-servicio-actual" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td>Costo Lead</td>
-                                <td id="costo-lead-servicio-actual"></td>
-                            </tr>
-                            <tr>
-                                <td>Conversión (%)</td>
-                                <td>
-                                    <input type="number" id="conversion-servicio-actual" class="form-control" readonly>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Cantidad de Ventas</td>
-                                <td id="cantidad-ventas-servicio-actual"></td>
-                            </tr>
-                            <tr>
-                                <td>Ticket Promedio</td>
-                                <td>
-                                    <input type="number" id="ticket-promedio-servicio-actual" class="form-control" readonly>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>% Ganancia Bruta</td>
-                                <td>
-                                    <input type="number" id="ganancia-bruta-servicio-actual" class="form-control" readonly>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ganancia Proyectada</td>
-                                <td id="ganancia-proyectada-servicio-actual"></td>
-                            </tr>
-                            <tr>
-                                <td>Ingresos Totales</td>
-                                <td id="ingresos-totales-servicio-actual"></td>
-                            </tr>
-                            <tr>
-                                <td>Inversión Actual</td>
-                                <td id="inversion-servicio-actual"></td>
-                            </tr>
-                            <tr>
-                                <td>ROAS</td>
-                                <td id="roas-servicio-actual"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Botón para realizar cálculos -->
-            <button id="calcular-todo" class="btn btn-primary mt-4">Calcular</button>
+        <!-- Campos ocultos de Fee e IVA LC -->
+        <input type="hidden" id="fee-lc" value="0.20" />
+        <input type="hidden" id="iva-lc" value="0.21" />
+        <div class="row g-3 mt-3 oculto">
+          <div class="col-12 col-md-6">
+            <label for="total-lc" class="form-label">Total LC</label>
+            <input type="text" class="form-control" id="total-lc" readonly />
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-4 bg-dark text-white">
-        <p>© 2024 RaiseAds. Todos los derechos reservados.</p>
-    </footer>
+      <!-- ====== Bloque 2: Contenido Multimedia (dos columnas, totales ocultos) ====== -->
+      <div class="block-card">
+        <h2>Contenido Multimedia</h2>
+        <div class="row g-3">
+          <!-- Reel -->
+          <div class="col-12 col-md-6">
+            <label for="reel-q" class="form-label">Reel Q</label>
+            <input type="number" class="form-control" id="reel-q" min="0" value="0" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="reel-valor" class="form-label">Reel Valor</label>
+            <input type="text" class="form-control campo-miles" id="reel-valor" placeholder="0" />
+          </div>
 
-    <!-- Scripts -->
-    <script src="js/cotUsd.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<!-- Scripts -->
-<!-- Popper.js y Bootstrap JS deben estar en este orden -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+          <!-- Gráfica -->
+          <div class="col-12 col-md-6">
+            <label for="grafica-q" class="form-label">Gráfica Q</label>
+            <input type="number" class="form-control" id="grafica-q" min="0" value="0" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="grafica-valor" class="form-label">Gráfica Valor</label>
+            <input type="text" class="form-control campo-miles" id="grafica-valor" placeholder="0" />
+          </div>
 
+          <!-- Influencer -->
+          <div class="col-12 col-md-6">
+            <label for="influencer-q" class="form-label">Influencer Q</label>
+            <input type="number" class="form-control" id="influencer-q" min="0" value="0" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="influencer-valor" class="form-label">Influencer Valor</label>
+            <input type="text" class="form-control campo-miles" id="influencer-valor" placeholder="0" />
+          </div>
+
+          <!-- Locutora -->
+          <div class="col-12 col-md-6">
+            <label for="locutora-q" class="form-label">Locutora Q</label>
+            <input type="number" class="form-control" id="locutora-q" min="0" value="0" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="locutora-valor" class="form-label">Locutora Valor</label>
+            <input type="text" class="form-control campo-miles" id="locutora-valor" placeholder="0" />
+          </div>
+
+          <!-- Totales ocultos -->
+          <input type="hidden" id="total-reel" />
+          <input type="hidden" id="total-grafica" />
+          <input type="hidden" id="total-influencer" />
+          <input type="hidden" id="total-locutora" />
+          <input type="hidden" id="total-contenido" />
+        </div>
+      </div>
+
+      <!-- ====== Bloque 3: Fee Agencia e Impuestos (oculto) ====== -->
+      <div class="block-card oculto">
+        <h2>3) Fee Agencia e Impuestos</h2>
+        <p class="text-muted fst-italic">Se calculan automáticamente según el Saldo Neto y totales anteriores.</p>
+        <div class="row g-3">
+          <div class="col-12 col-md-3">
+            <label for="porcentaje-fee-agencia" class="form-label">% Fee Agencia</label>
+            <input type="text" class="form-control" id="porcentaje-fee-agencia" readonly />
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="fee-agencia" class="form-label">Fee Agencia</label>
+            <input type="text" class="form-control" id="fee-agencia" readonly />
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="iva-agencia" class="form-label">IVA Agencia</label>
+            <input type="text" class="form-control" id="iva-agencia" readonly />
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="iibb-agencia" class="form-label">IIBB Agencia</label>
+            <input type="text" class="form-control" id="iibb-agencia" readonly />
+          </div>
+          <div class="col-12 col-md-4 mt-3">
+            <label for="total-impuestos" class="form-label">Total Impuestos</label>
+            <input type="text" class="form-control" id="total-impuestos" readonly />
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== Bloque 4: Método de Pago y Totales Finales ====== -->
+      <div class="block-card">
+        <h2>Método de Pago y Totales Finales</h2>
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-4">
+            <label for="metodo-pago" class="form-label">Método de Pago</label>
+            <select class="form-select" id="metodo-pago">
+              <option value="MP" selected>MP</option>
+              <option value="Transferencia">Transferencia</option>
+              <option value="NAVE">NAVE</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="total-a-pagar" class="form-label">Total a Pagar</label>
+            <input type="text" class="form-control" id="total-a-pagar" readonly />
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="descuento" class="form-label">Descuento</label>
+            <input type="text" class="form-control" id="descuento" readonly />
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== Bloque 5: Leads e Ingresos Aproximados ====== -->
+      <div class="block-card">
+        <h2>Leads e Ingresos Aproximados</h2>
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-4">
+            <label for="costo-lead" class="form-label">Costo Lead</label>
+            <input type="text" class="form-control campo-miles" id="costo-lead" placeholder="0" />
+            <div id="error-costo-lead" class="form-text text-danger oculto">
+              Ingrese un Costo Lead válido para calcular Leads Estimados.
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="leads-estimados" class="form-label">Leads Estimados</label>
+            <input type="text" class="form-control" id="leads-estimados" readonly />
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="comision-venta" class="form-label">Comisión por Venta</label>
+            <input type="text" class="form-control campo-miles" id="comision-venta" placeholder="0" />
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="porcentaje-conversion" class="form-label">% Conversión</label>
+            <input type="number" class="form-control" id="porcentaje-conversion" min="0" max="100" value="0" />
+            <div id="error-conversion" class="form-text text-danger oculto">
+              % Conversión debe estar entre 0 y 100.
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="ingresos-aprox" class="form-label">Ingresos Aproximados</label>
+            <input type="text" class="form-control" id="ingresos-aprox" readonly />
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón para actualizar cálculos -->
+      <div class="text-center mt-4">
+        <button id="btn-calcular" class="btn btn-primary">Calcular</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 bg-dark text-white">
+    <p>© 2025 RaiseAds. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Bootstrap JS + Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <!-- Tu archivo JavaScript corregido -->
+  <script src="js/cotUsd.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,9 @@
-/* Estilos generales */
+/* ===========================
+   Tu CSS Global Existente
+   =========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
@@ -88,16 +93,9 @@ iframe {
     text-decoration: none; /* Opcional, para quitar el subrayado al pasar el mouse */
 }
 
-
 /*============================
- Cotizador USD 
+ Cotizador USD / ARS
  =============================*/
- @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-
-body {
-    font-family: 'Montserrat', sans-serif;
-}
-
 h1, h2 {
     color: #0d6efd;
 }
@@ -111,12 +109,10 @@ footer {
     background-color: #0d6efd;
 }
 
-
 /* Fondo blanco para las páginas cotizador-ars.html y cotizador-usd.html */
 #cotizador {
     background-color: white ; /* Fondo blanco para las páginas Cotizador */
 }
-
 
 /* Asegurarse de que todos los bordes de la tabla sean visibles */
 .table-bordered {
@@ -134,3 +130,62 @@ footer {
     font-weight: bold; /* Asegurarse de que el texto en las celdas del encabezado sea más visible */
 }
 
+/* ===========================
+   Estilos Nuevos para Bloques
+   =========================== */
+
+/* “Cards” o bloques de cada sección */
+.block-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Inputs read-only (resultados) */
+input[readonly] {
+    background-color: #f1f1f1;
+    font-weight: 600;
+}
+
+/* Inputs que usan máscara de miles */
+.campo-miles {
+    text-align: right;
+}
+
+/* Ocultar elementos */
+.oculto {
+    display: none !important;
+}
+
+/* Botón “Actualizar Cálculos” */
+#btn-calcular {
+    background-color: #729a9c;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    transition: background-color 0.2s ease-in-out;
+    color: white;
+}
+
+#btn-calcular:hover {
+    background-color: #5a7f80;
+}
+
+/* Feedback de validación */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+/* Ajustes para móvil */
+@media (max-width: 767.98px) {
+    .block-card {
+        padding: 1rem;
+        margin-top: 1.5rem;
+    }
+    #btn-calcular {
+        width: 100%;
+    }
+}
