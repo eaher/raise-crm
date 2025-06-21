@@ -125,44 +125,37 @@ const totalContenido = totalReel + totalGrafica + totalInfluencer + totalLocutor
 document.getElementById('total-contenido').value = formatearMiles(totalContenido);
 
 
-    // 4) FEE AGENCIA
-    let porcentajeFeeAgencia = 0;
-    if (saldoNeto < 500001) porcentajeFeeAgencia = 0.30;
-    else if (saldoNeto <= 1000000) porcentajeFeeAgencia = 0.28;
-    else if (saldoNeto <= 5000000) porcentajeFeeAgencia = 0.25;
-    else if (saldoNeto <= 10000000) porcentajeFeeAgencia = 0.22;
-    else if (saldoNeto <= 20000000) porcentajeFeeAgencia = 0.18;
-    else porcentajeFeeAgencia = 0.15;
-    document.getElementById('comision-raise').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
+// 4) FEE AGENCIA
+let porcentajeFeeAgencia = 0;
+if (saldoNeto < 500001) porcentajeFeeAgencia = 0.30;
+else if (saldoNeto <= 1000000) porcentajeFeeAgencia = 0.28;
+else if (saldoNeto <= 5000000) porcentajeFeeAgencia = 0.25;
+else if (saldoNeto <= 10000000) porcentajeFeeAgencia = 0.22;
+else if (saldoNeto <= 20000000) porcentajeFeeAgencia = 0.18;
+else porcentajeFeeAgencia = 0.15;
 
+document.getElementById('comision-raise').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
+document.getElementById('porcentaje-fee-agencia').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
 
-    document.getElementById('porcentaje-fee-agencia').value =
-      (porcentajeFeeAgencia * 100).toFixed(0) + '%';
+const montoFeeAgencia = Math.ceil(saldoNeto * porcentajeFeeAgencia);
+document.getElementById('fee-agencia').value = formatearMiles(montoFeeAgencia);
 
-    const montoFeeAgencia = Math.ceil(saldoNeto * porcentajeFeeAgencia); // p.ej. 30,000
-    document.getElementById('fee-agencia').value =
-      formatearMiles(montoFeeAgencia);
+// Base para IVA e IIBB: TotalLC + Contenido + Fee
+const baseAgencia = totalLC + totalContenido + montoFeeAgencia;
 
-    // Base para cálculos de IVA e IIBB Agencia = TotalLC + TotalContenido + FeeAgencia
-    const baseAgencia = totalLC + totalContenido + montoFeeAgencia; // 145,200 +120,000 +30,000 = 295,200
+// IVA Agencia (21%) + IIBB Agencia (5%)
+const montoIvaAgencia = Math.ceil(baseAgencia * 0.21);
+const montoIibbAgencia = Math.ceil(baseAgencia * 0.05);
+document.getElementById('iva-agencia').value = formatearMiles(montoIvaAgencia);
+document.getElementById('iibb-agencia').value = formatearMiles(montoIibbAgencia);
 
-    // IVA Agencia = baseAgencia * 0.21 = 61,992
-    const montoIvaAgencia = Math.ceil(baseAgencia * 0.21);
-    document.getElementById('iva-agencia').value =
-      formatearMiles(montoIvaAgencia);
+// Total Impuestos (solo IVA + IIBB)
+const totalImpuestos = montoIvaAgencia + montoIibbAgencia;
+document.getElementById('total-impuestos').value = formatearMiles(totalImpuestos);
 
-    // IIBB Agencia = baseAgencia * 0.05 = 14,760
-    const montoIibbAgencia = Math.ceil(baseAgencia * 0.05);
-    document.getElementById('iibb-agencia').value =
-      formatearMiles(montoIibbAgencia);
+// Total antes de MP: base + impuestos (fee solo se usa en la base, no se duplica)
+const totalAntesMP = baseAgencia + totalImpuestos;
 
-    // Total Importe Agencia (Fee + IVA + IIBB) = 30,000 + 61,992 + 14,760 = 106,752
-    const totalImpuestos = montoFeeAgencia + montoIvaAgencia + montoIibbAgencia;
-    document.getElementById('total-impuestos').value =
-      formatearMiles(totalImpuestos);
-
-    // 5) TOTAL FINAL ANTES DE MP
-    const totalAntesMP = totalLC + totalContenido + totalImpuestos; // 145,200 +120,000 +106,752 = 371,952
 
     // 6) TOTAL A PAGAR Y DESCUENTO
     const metodoPago = document.getElementById('metodo-pago').value;
@@ -181,7 +174,17 @@ document.getElementById('total-contenido').value = formatearMiles(totalContenido
 
     document.getElementById('total-a-pagar').value =
       formatearMiles(Math.ceil(totalAPagar));
-    document.getElementById('descuento').value = textoDescuento;
+    
+console.log('🧮 DESGLOSE DE IMPUESTOS Y FEE AGENCIA');
+console.log('Saldo Neto:', saldoNeto);
+console.log('% Comisión Raise:', (porcentajeFeeAgencia * 100).toFixed(0) + '%');
+console.log('Monto Fee Agencia:', montoFeeAgencia);
+console.log('Base Agencia (LC + Contenido + Fee):', baseAgencia);
+console.log('IVA Agencia (21%):', montoIvaAgencia);
+console.log('IIBB Agencia (5%):', montoIibbAgencia);
+console.log('Total Impuestos:', totalImpuestos);
+
+
 
     const inputTotalPagar = document.getElementById('total-a-pagar');
     if (metodoPago === 'Transferencia') {
