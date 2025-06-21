@@ -88,38 +88,53 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('total-lc').value = formatearMiles(Math.ceil(totalLC));
 
-    // 3) CONTENIDO MULTIMEDIA
-    const reelQ = parseFloat(document.getElementById('reel-q').value) || 0;
-    const reelValor = extraerNumero(document.getElementById('reel-valor').value);
-    const totalReel = reelQ * reelValor;                        // p.ej. 2 * 10k = 20k
-    document.getElementById('total-reel').value = formatearMiles(totalReel);
+// 3) CONTENIDO MULTIMEDIA
+const reelQ = parseFloat(document.getElementById('reel-q').value) || 0;
+const reelValor = extraerNumero(document.getElementById('reel-valor').value);
+const totalReel = reelQ * reelValor;
+document.getElementById('total-reel').value = formatearMiles(totalReel);
+document.getElementById('reel-total-visible').value = formatearMiles(totalReel);
 
-    const graficaQ = parseFloat(document.getElementById('grafica-q').value) || 0;
-    const graficaValor = extraerNumero(document.getElementById('grafica-valor').value);
-    const totalGrafica = graficaQ * graficaValor;               // p.ej. 3 * 15k = 45k
-    document.getElementById('total-grafica').value = formatearMiles(totalGrafica);
+const graficaQ = parseFloat(document.getElementById('grafica-q').value) || 0;
+const graficaValor = extraerNumero(document.getElementById('grafica-valor').value);
+const totalGrafica = graficaQ * graficaValor;
+document.getElementById('total-grafica').value = formatearMiles(totalGrafica);
+document.getElementById('grafica-total-visible').value = formatearMiles(totalGrafica);
 
-    const influencerQ = parseFloat(document.getElementById('influencer-q').value) || 0;
-    const influencerValor = extraerNumero(document.getElementById('influencer-valor').value);
-    const totalInfluencer = influencerQ * influencerValor;       // p.ej. 1 * 50k = 50k
-    document.getElementById('total-influencer').value = formatearMiles(totalInfluencer);
+const influencerQ = parseFloat(document.getElementById('influencer-q').value) || 0;
+const influencerValor = extraerNumero(document.getElementById('influencer-valor').value);
+const totalInfluencer = influencerQ * influencerValor;
+document.getElementById('total-influencer').value = formatearMiles(totalInfluencer);
+document.getElementById('influencer-total-visible').value = formatearMiles(totalInfluencer);
 
-    const locutoraQ = parseFloat(document.getElementById('locutora-q').value) || 0;
-    const locutoraValor = extraerNumero(document.getElementById('locutora-valor').value);
-    const totalLocutora = locutoraQ * locutoraValor;             // p.ej. 1 * 0 = 0
-    document.getElementById('total-locutora').value = formatearMiles(totalLocutora);
+const locutoraQ = parseFloat(document.getElementById('locutora-q').value) || 0;
+const locutoraValor = extraerNumero(document.getElementById('locutora-valor').value);
+const totalLocutora = locutoraQ * locutoraValor;
+document.getElementById('total-locutora').value = formatearMiles(totalLocutora);
+document.getElementById('locutora-total-visible').value = formatearMiles(totalLocutora);
 
-    const totalContenido = totalReel + totalGrafica + totalInfluencer + totalLocutora; // 120,000
-    document.getElementById('total-contenido').value = formatearMiles(totalContenido);
+// NUEVO: Fee Onboarding
+const feeQ = parseFloat(document.getElementById('fee-q').value) || 0;
+const feeValor = extraerNumero(document.getElementById('fee-valor').value);
+const totalFee = feeQ * feeValor;
+document.getElementById('total-fee').value = formatearMiles(totalFee);
+document.getElementById('fee-total-visible').value = formatearMiles(totalFee);
+
+// Total Contenido Multimedia (sumando todos los conceptos)
+const totalContenido = totalReel + totalGrafica + totalInfluencer + totalLocutora + totalFee;
+document.getElementById('total-contenido').value = formatearMiles(totalContenido);
+
 
     // 4) FEE AGENCIA
     let porcentajeFeeAgencia = 0;
-    if (saldoNeto < 500001)          porcentajeFeeAgencia = 0.30;
-    else if (saldoNeto <= 1000000)   porcentajeFeeAgencia = 0.28;
-    else if (saldoNeto <= 5000000)   porcentajeFeeAgencia = 0.25;
-    else if (saldoNeto <= 10000000)  porcentajeFeeAgencia = 0.22;
-    else if (saldoNeto <= 20000000)  porcentajeFeeAgencia = 0.18;
-    else                              porcentajeFeeAgencia = 0.15;
+    if (saldoNeto < 500001) porcentajeFeeAgencia = 0.30;
+    else if (saldoNeto <= 1000000) porcentajeFeeAgencia = 0.28;
+    else if (saldoNeto <= 5000000) porcentajeFeeAgencia = 0.25;
+    else if (saldoNeto <= 10000000) porcentajeFeeAgencia = 0.22;
+    else if (saldoNeto <= 20000000) porcentajeFeeAgencia = 0.18;
+    else porcentajeFeeAgencia = 0.15;
+    document.getElementById('comision-raise').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
+
 
     document.getElementById('porcentaje-fee-agencia').value =
       (porcentajeFeeAgencia * 100).toFixed(0) + '%';
@@ -191,6 +206,13 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     document.getElementById('ingresos-aprox').value =
       formatearMiles(Math.ceil(ingresosAprox));
+    // Ventas Estimadas = Leads Estimados * % Conversión
+    const ventasEstimadas = leadsEstimados * porcentajeConversion;
+    document.getElementById('ventas-estimadas').value = ventasEstimadas.toFixed(2);
+
+
+
+
   });
 
   // ---------------------------------------------

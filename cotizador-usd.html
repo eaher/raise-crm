@@ -81,6 +81,11 @@
             <input type="text" class="form-control campo-miles" id="saldo-neto" placeholder="0" />
             <div class="form-text">Al escribir, se formatea con “.” automáticamente. Ej.: 12.345</div>
           </div>
+          <div class="col-12 col-md-6">
+            <label for="comision-raise" class="form-label">% Comisión Raise</label>
+            <input type="text" class="form-control" id="comision-raise" readonly />
+          </div>
+
         </div>
         <!-- Campos ocultos de Fee e IVA LC -->
         <input type="hidden" id="fee-lc" value="0.20" />
@@ -93,48 +98,78 @@
         </div>
       </div>
 
-      <!-- ====== Bloque 2: Contenido Multimedia (dos columnas, totales ocultos) ====== -->
+      <!-- ====== Bloque 2: Contenido Multimedia (tres columnas por fila) ====== -->
       <div class="block-card">
         <h2>Contenido Multimedia</h2>
         <div class="row g-3">
           <!-- Reel -->
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="reel-q" class="form-label">Reel Q</label>
             <input type="number" class="form-control" id="reel-q" min="0" value="0" />
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="reel-valor" class="form-label">Reel Valor</label>
             <input type="text" class="form-control campo-miles" id="reel-valor" placeholder="0" />
           </div>
+          <div class="col-12 col-md-4">
+            <label for="reel-total-visible" class="form-label">Total Reel</label>
+            <input type="text" class="form-control" id="reel-total-visible" readonly />
+          </div>
 
           <!-- Gráfica -->
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="grafica-q" class="form-label">Gráfica Q</label>
             <input type="number" class="form-control" id="grafica-q" min="0" value="0" />
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="grafica-valor" class="form-label">Gráfica Valor</label>
             <input type="text" class="form-control campo-miles" id="grafica-valor" placeholder="0" />
           </div>
+          <div class="col-12 col-md-4">
+            <label for="grafica-total-visible" class="form-label">Total Gráfica</label>
+            <input type="text" class="form-control" id="grafica-total-visible" readonly />
+          </div>
 
           <!-- Influencer -->
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="influencer-q" class="form-label">Influencer Q</label>
             <input type="number" class="form-control" id="influencer-q" min="0" value="0" />
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="influencer-valor" class="form-label">Influencer Valor</label>
             <input type="text" class="form-control campo-miles" id="influencer-valor" placeholder="0" />
           </div>
+          <div class="col-12 col-md-4">
+            <label for="influencer-total-visible" class="form-label">Total Influencer</label>
+            <input type="text" class="form-control" id="influencer-total-visible" readonly />
+          </div>
 
           <!-- Locutora -->
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="locutora-q" class="form-label">Locutora Q</label>
             <input type="number" class="form-control" id="locutora-q" min="0" value="0" />
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
             <label for="locutora-valor" class="form-label">Locutora Valor</label>
             <input type="text" class="form-control campo-miles" id="locutora-valor" placeholder="0" />
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="locutora-total-visible" class="form-label">Total Locutora</label>
+            <input type="text" class="form-control" id="locutora-total-visible" readonly />
+          </div>
+
+          <!-- Fee Onboarding -->
+          <div class="col-12 col-md-4">
+            <label for="fee-q" class="form-label">Fee Q</label>
+            <input type="number" class="form-control" id="fee-q" min="0" value="0" />
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="fee-valor" class="form-label">Fee Valor</label>
+            <input type="text" class="form-control campo-miles" id="fee-valor" placeholder="0" />
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="fee-total-visible" class="form-label">Total Fee Onboarding</label>
+            <input type="text" class="form-control" id="fee-total-visible" readonly />
           </div>
 
           <!-- Totales ocultos -->
@@ -142,9 +177,12 @@
           <input type="hidden" id="total-grafica" />
           <input type="hidden" id="total-influencer" />
           <input type="hidden" id="total-locutora" />
+          <input type="hidden" id="total-fee" />
           <input type="hidden" id="total-contenido" />
         </div>
       </div>
+
+
 
       <!-- ====== Bloque 3: Fee Agencia e Impuestos (oculto) ====== -->
       <div class="block-card oculto">
@@ -227,6 +265,11 @@
             <label for="ingresos-aprox" class="form-label">Ingresos Aproximados</label>
             <input type="text" class="form-control" id="ingresos-aprox" readonly />
           </div>
+          <div class="col-12 col-md-4">
+            <label for="ventas-estimadas" class="form-label">Ventas Estimadas</label>
+            <input type="text" class="form-control" id="ventas-estimadas" readonly />
+          </div>
+
         </div>
       </div>
 
