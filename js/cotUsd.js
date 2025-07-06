@@ -32,6 +32,19 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Mostrar/ocultar bloque IA al cambiar el desplegable
+  const selectIa = document.getElementById("incluye-ia");
+  const bloqueIa = document.getElementById("bloque-ia");
+
+  selectIa.addEventListener("change", () => {
+    if (selectIa.value === "si") {
+      bloqueIa.classList.remove("d-none");
+    } else {
+      bloqueIa.classList.add("d-none");
+    }
+  });
+
+
   // ---------------------------------------------
   // Validación de % Conversión (0-100) en tiempo real
   // ---------------------------------------------
@@ -88,73 +101,87 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('total-lc').value = formatearMiles(Math.ceil(totalLC));
 
-// 3) CONTENIDO MULTIMEDIA
-const reelQ = parseFloat(document.getElementById('reel-q').value) || 0;
-const reelValor = extraerNumero(document.getElementById('reel-valor').value);
-const totalReel = reelQ * reelValor;
-document.getElementById('total-reel').value = formatearMiles(totalReel);
-document.getElementById('reel-total-visible').value = formatearMiles(totalReel);
+    // 3) CONTENIDO MULTIMEDIA
+    const reelQ = parseFloat(document.getElementById('reel-q').value) || 0;
+    const reelValor = extraerNumero(document.getElementById('reel-valor').value);
+    const totalReel = reelQ * reelValor;
+    document.getElementById('total-reel').value = formatearMiles(totalReel);
+    document.getElementById('reel-total-visible').value = formatearMiles(totalReel);
 
-const graficaQ = parseFloat(document.getElementById('grafica-q').value) || 0;
-const graficaValor = extraerNumero(document.getElementById('grafica-valor').value);
-const totalGrafica = graficaQ * graficaValor;
-document.getElementById('total-grafica').value = formatearMiles(totalGrafica);
-document.getElementById('grafica-total-visible').value = formatearMiles(totalGrafica);
+    const graficaQ = parseFloat(document.getElementById('grafica-q').value) || 0;
+    const graficaValor = extraerNumero(document.getElementById('grafica-valor').value);
+    const totalGrafica = graficaQ * graficaValor;
+    document.getElementById('total-grafica').value = formatearMiles(totalGrafica);
+    document.getElementById('grafica-total-visible').value = formatearMiles(totalGrafica);
 
-const influencerQ = parseFloat(document.getElementById('influencer-q').value) || 0;
-const influencerValor = extraerNumero(document.getElementById('influencer-valor').value);
-const totalInfluencer = influencerQ * influencerValor;
-document.getElementById('total-influencer').value = formatearMiles(totalInfluencer);
-document.getElementById('influencer-total-visible').value = formatearMiles(totalInfluencer);
+    const influencerQ = parseFloat(document.getElementById('influencer-q').value) || 0;
+    const influencerValor = extraerNumero(document.getElementById('influencer-valor').value);
+    const totalInfluencer = influencerQ * influencerValor;
+    document.getElementById('total-influencer').value = formatearMiles(totalInfluencer);
+    document.getElementById('influencer-total-visible').value = formatearMiles(totalInfluencer);
 
-const locutoraQ = parseFloat(document.getElementById('locutora-q').value) || 0;
-const locutoraValor = extraerNumero(document.getElementById('locutora-valor').value);
-const totalLocutora = locutoraQ * locutoraValor;
-document.getElementById('total-locutora').value = formatearMiles(totalLocutora);
-document.getElementById('locutora-total-visible').value = formatearMiles(totalLocutora);
+    const locutoraQ = parseFloat(document.getElementById('locutora-q').value) || 0;
+    const locutoraValor = extraerNumero(document.getElementById('locutora-valor').value);
+    const totalLocutora = locutoraQ * locutoraValor;
+    document.getElementById('total-locutora').value = formatearMiles(totalLocutora);
+    document.getElementById('locutora-total-visible').value = formatearMiles(totalLocutora);
 
-// NUEVO: Fee Onboarding
-const feeQ = parseFloat(document.getElementById('fee-q').value) || 0;
-const feeValor = extraerNumero(document.getElementById('fee-valor').value);
-const totalFee = feeQ * feeValor;
-document.getElementById('total-fee').value = formatearMiles(totalFee);
-document.getElementById('fee-total-visible').value = formatearMiles(totalFee);
+    // NUEVO: Fee Onboarding
+    const feeQ = parseFloat(document.getElementById('fee-q').value) || 0;
+    const feeValor = extraerNumero(document.getElementById('fee-valor').value);
+    const totalFee = feeQ * feeValor;
+    document.getElementById('total-fee').value = formatearMiles(totalFee);
+    document.getElementById('fee-total-visible').value = formatearMiles(totalFee);
 
-// Total Contenido Multimedia (sumando todos los conceptos)
-const totalContenido = totalReel + totalGrafica + totalInfluencer + totalLocutora + totalFee;
-document.getElementById('total-contenido').value = formatearMiles(totalContenido);
+    // Total Contenido Multimedia (sumando todos los conceptos)
+    const totalContenido = totalReel + totalGrafica + totalInfluencer + totalLocutora + totalFee;
+    document.getElementById('total-contenido').value = formatearMiles(totalContenido);
 
 
-// 4) FEE AGENCIA
-let porcentajeFeeAgencia = 0;
-if (saldoNeto < 500001) porcentajeFeeAgencia = 0.30;
-else if (saldoNeto <= 1000000) porcentajeFeeAgencia = 0.28;
-else if (saldoNeto <= 5000000) porcentajeFeeAgencia = 0.25;
-else if (saldoNeto <= 10000000) porcentajeFeeAgencia = 0.22;
-else if (saldoNeto <= 20000000) porcentajeFeeAgencia = 0.18;
-else porcentajeFeeAgencia = 0.15;
+    // 4) FEE AGENCIA
+    let porcentajeFeeAgencia = 0;
+    if (saldoNeto < 500001) porcentajeFeeAgencia = 0.30;
+    else if (saldoNeto <= 1000000) porcentajeFeeAgencia = 0.28;
+    else if (saldoNeto <= 5000000) porcentajeFeeAgencia = 0.25;
+    else if (saldoNeto <= 10000000) porcentajeFeeAgencia = 0.22;
+    else if (saldoNeto <= 20000000) porcentajeFeeAgencia = 0.18;
+    else porcentajeFeeAgencia = 0.15;
 
-document.getElementById('comision-raise').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
-document.getElementById('porcentaje-fee-agencia').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
+    document.getElementById('comision-raise').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
+    document.getElementById('porcentaje-fee-agencia').value = (porcentajeFeeAgencia * 100).toFixed(0) + '%';
 
-const montoFeeAgencia = Math.ceil(saldoNeto * porcentajeFeeAgencia);
-document.getElementById('fee-agencia').value = formatearMiles(montoFeeAgencia);
+    const montoFeeAgencia = Math.ceil(saldoNeto * porcentajeFeeAgencia);
+    document.getElementById('fee-agencia').value = formatearMiles(montoFeeAgencia);
 
-// Base para IVA e IIBB: TotalLC + Contenido + Fee
-const baseAgencia = totalLC + totalContenido + montoFeeAgencia;
+    // Base para IVA e IIBB: TotalLC + Contenido + Fee
+    const baseAgencia = totalLC + totalContenido + montoFeeAgencia;
 
-// IVA Agencia (21%) + IIBB Agencia (5%)
-const montoIvaAgencia = Math.ceil(baseAgencia * 0.21);
-const montoIibbAgencia = Math.ceil(baseAgencia * 0.05);
-document.getElementById('iva-agencia').value = formatearMiles(montoIvaAgencia);
-document.getElementById('iibb-agencia').value = formatearMiles(montoIibbAgencia);
+    // IVA Agencia (21%) + IIBB Agencia (5%)
+    const montoIvaAgencia = Math.ceil(baseAgencia * 0.21);
+    const montoIibbAgencia = Math.ceil(baseAgencia * 0.05);
+    document.getElementById('iva-agencia').value = formatearMiles(montoIvaAgencia);
+    document.getElementById('iibb-agencia').value = formatearMiles(montoIibbAgencia);
 
-// Total Impuestos (solo IVA + IIBB)
-const totalImpuestos = montoIvaAgencia + montoIibbAgencia;
-document.getElementById('total-impuestos').value = formatearMiles(totalImpuestos);
+    // Total Impuestos (solo IVA + IIBB)
+    const totalImpuestos = montoIvaAgencia + montoIibbAgencia;
+    document.getElementById('total-impuestos').value = formatearMiles(totalImpuestos);
 
-// Total antes de MP: base + impuestos (fee solo se usa en la base, no se duplica)
-const totalAntesMP = baseAgencia + totalImpuestos;
+    // Total antes de MP: base + impuestos (fee solo se usa en la base, no se duplica)
+    // totalAntesMP sin IA
+const totalAntesMPBase = baseAgencia + totalImpuestos;
+
+// Calcular valor de IA (solo si está habilitado)
+let totalIA = 0;
+if (selectIa.value === "si") {
+  const valorIA = parseFloat(document.getElementById("valor-ia").value) || 0;
+  const cotizacionUSD = parseFloat(document.getElementById("cotizacion-usd").value) || 0;
+  totalIA = valorIA * cotizacionUSD;
+  document.getElementById("total-ia").value = formatearMiles(totalIA);
+}
+
+// totalAntesMP final con IA si corresponde
+const totalAntesMP = totalAntesMPBase + totalIA;
+
 
 
     // 6) TOTAL A PAGAR Y DESCUENTO
@@ -174,15 +201,15 @@ const totalAntesMP = baseAgencia + totalImpuestos;
 
     document.getElementById('total-a-pagar').value =
       formatearMiles(Math.ceil(totalAPagar));
-    
-console.log('🧮 DESGLOSE DE IMPUESTOS Y FEE AGENCIA');
-console.log('Saldo Neto:', saldoNeto);
-console.log('% Comisión Raise:', (porcentajeFeeAgencia * 100).toFixed(0) + '%');
-console.log('Monto Fee Agencia:', montoFeeAgencia);
-console.log('Base Agencia (LC + Contenido + Fee):', baseAgencia);
-console.log('IVA Agencia (21%):', montoIvaAgencia);
-console.log('IIBB Agencia (5%):', montoIibbAgencia);
-console.log('Total Impuestos:', totalImpuestos);
+
+    console.log('🧮 DESGLOSE DE IMPUESTOS Y FEE AGENCIA');
+    console.log('Saldo Neto:', saldoNeto);
+    console.log('% Comisión Raise:', (porcentajeFeeAgencia * 100).toFixed(0) + '%');
+    console.log('Monto Fee Agencia:', montoFeeAgencia);
+    console.log('Base Agencia (LC + Contenido + Fee):', baseAgencia);
+    console.log('IVA Agencia (21%):', montoIvaAgencia);
+    console.log('IIBB Agencia (5%):', montoIibbAgencia);
+    console.log('Total Impuestos:', totalImpuestos);
 
 
 

@@ -73,6 +73,15 @@
       </div>
 
       <!-- ====== Bloque 1: Datos Base ====== -->
+<div class="col-12 col-md-6">
+  <label for="incluye-ia" class="form-label">¿Incluye IA?</label>
+  <select class="form-select" id="incluye-ia">
+    <option value="no">Sin IA</option>
+    <option value="si">Incluye IA</option>
+    </select>
+</div>
+
+
       <div class="block-card">
         <h2>Datos Base</h2>
         <div class="row g-3">
@@ -211,6 +220,26 @@
           </div>
         </div>
       </div>
+<!-- ====== Bloque IA (oculto inicialmente) ====== -->
+<div id="bloque-ia" class="block-card d-none">
+  <h2>IA Integrada</h2>
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <label for="valor-ia" class="form-label">Valor IA (USD)</label>
+      <input type="text" class="form-control" id="valor-ia" value="850" readonly />
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="cotizacion-usd" class="form-label">Cotización USD</label>
+      <input type="number" class="form-control" id="cotizacion-usd" placeholder="Ej: 1100" />
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="total-ia" class="form-label">Total IA (ARS)</label>
+      <input type="text" class="form-control" id="total-ia" readonly />
+    </div>
+  </div>
+</div>
+
+
 
       <!-- ====== Bloque 4: Método de Pago y Totales Finales ====== -->
       <div class="block-card">
