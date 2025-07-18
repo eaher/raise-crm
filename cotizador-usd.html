@@ -223,21 +223,63 @@
 <!-- ====== Bloque IA (oculto inicialmente) ====== -->
 <div id="bloque-ia" class="block-card d-none">
   <h2>IA Integrada</h2>
+
   <div class="row g-3">
-    <div class="col-12 col-md-6">
-      <label for="valor-ia" class="form-label">Valor IA (USD)</label>
-      <input type="text" class="form-control" id="valor-ia" value="850" readonly />
-    </div>
-    <div class="col-12 col-md-6">
+    <div class="col-md-6">
       <label for="cotizacion-usd" class="form-label">Cotización USD</label>
       <input type="number" class="form-control" id="cotizacion-usd" placeholder="Ej: 1100" />
     </div>
-    <div class="col-12 col-md-6">
-      <label for="total-ia" class="form-label">Total IA (ARS)</label>
+  </div>
+
+  <div class="my-3">
+    <button id="agregar-proceso" class="btn btn-outline-primary btn-sm">+ Agregar Proceso</button>
+  </div>
+
+  <div id="procesos-container"></div>
+
+  <div class="row g-3 mt-4">
+    <div class="col-md-6">
+      <label for="valor-ia" class="form-label">Valor IA (USD)</label>
+      <input type="text" class="form-control" id="valor-ia" readonly />
+    </div>
+    <div class="col-md-6">
+      <label for="total-ia" class="form-label">Total IA (ARS) C/Imp</label>
       <input type="text" class="form-control" id="total-ia" readonly />
     </div>
   </div>
 </div>
+
+<!-- Template oculto para duplicar procesos -->
+<template id="template-proceso">
+  <div class="proceso border p-3 mb-3">
+    <div class="row g-2 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label">Nombre del Proceso</label>
+        <input type="text" class="form-control nombre-proceso" placeholder="Ej: Ventas" required />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Conversaciones</label>
+        <select class="form-select conversaciones">
+          <option value="1000">1000</option>
+          <option value="2000">2000</option>
+          <option value="3000">3000</option>
+          <option value="4000">4000</option>
+          <option value="5000">5000</option>
+          <option value="9000">9000</option>
+          <option value="12000">12000</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Onboarding (USD)</label>
+        <input type="number" class="form-control onboarding" placeholder="Ej: 200" />
+      </div>
+    </div>
+    <div class="mt-3">
+      <label class="form-label valor-proceso-label">Valor Proceso (USD)</label>
+      <input type="text" class="form-control valor-proceso" readonly />
+    </div>
+  </div>
+</template>
 
 
 
